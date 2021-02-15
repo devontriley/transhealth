@@ -1,0 +1,80 @@
+.rte.logo-grid {
+    position: relative;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    @media(min-width: 1440px) {
+        margin-top: 11rem;
+        margin-bottom: 11rem;
+    }
+    
+    .inset {
+        padding: 3rem 0;
+        @include media-breakpoint-up(lg) {
+            width: 50%;
+            padding: 7rem 10rem 5rem 0;
+        }
+
+        &:before {
+            content: '';
+            background: $insetGradient;
+            width: 105vw;
+            height: 80%;
+            position: absolute;
+            z-index: -1;
+            left: -5vw;
+            top: 0;
+            @include media-breakpoint-up(lg){
+                width: 50vw;
+            }
+            @media(min-width: 1440px) {
+                left: -10vw;
+                height: calc(100% - 10vw);
+            }
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 3.4rem;
+            margin: 0;
+        }
+    }
+
+    & > .row {
+
+        p:first-child {
+            margin-top: 0;
+        }
+
+        .logo-grid-wrapper {
+            background: #fff;
+            box-shadow: 0px 3px 6px #8EB1C739;
+            border-radius: 10px;
+            padding: 3rem;
+            @include media-breakpoint-up(lg) {
+                padding: 6rem 10rem;
+            }
+
+            .card-body {
+                text-align: center;
+
+                .img-wrapper {
+                    display: block;
+
+                    img {
+                        //width: 7.3vw; // if images are cropped to artwork
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+
+                .text-wrapper {
+                    h3 {
+                        font-size: 14px;
+                        color: #969696;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+}

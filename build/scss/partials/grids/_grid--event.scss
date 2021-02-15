@@ -1,0 +1,44 @@
+.grid.event {
+    position: relative;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    @media(min-width: 1440px) {
+        margin-top: 11rem;
+        margin-bottom: 11rem;
+    }
+
+    h2.main-header {
+        position: relative;
+        @media(min-width: 1440px) {
+            transform: translateX(-12vw);
+        }
+    }
+
+    &:before {
+        content: '';
+        display: none;
+        background: $insetGradient;
+        width: 100vw;
+        height: 40%;
+        position: absolute;
+        z-index: -1;
+        left: 0;
+        bottom: 0;
+        transform: translateY(10%);
+        @include media-breakpoint-up(lg) {
+            display: block;
+            width: 50vw;
+            height: 23vw;
+        }
+        @media(min-width: 1440px) {
+            left: -10vw;
+            bottom: -11rem;
+        }
+    }
+
+    .events {
+        @media(min-width: 1440px) {
+            margin-top: -3vw;
+        }
+    }
+}

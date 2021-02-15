@@ -1,0 +1,68 @@
+.faq {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    @media(min-width: 1440px) {
+        margin-top: 11rem;
+        margin-bottom: 11rem;
+    }
+
+    h2 {
+        &:not(:first-child) {
+            margin-top: 5rem;
+        }
+    }
+
+    .card {
+        border: none;
+        background: none;
+        border-radius: 0;
+
+        .card-header {
+            border: none;
+            border-bottom: 1px solid #cccccc;
+            background: none;
+            border-radius: 0;
+            padding: 2rem 0 2rem 5rem;
+            text-align: left;
+            position: relative;
+
+            p {
+                margin: 0;
+
+                button {
+                    margin: 0;
+                    padding: 0;
+                    background: none;
+                    display: block;
+                    width: 100%;
+                    text-align: left;
+
+                    svg {
+                        position: absolute;
+                        left: 1rem;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        transition: all ease 300ms;
+                    }
+
+                    &[aria-expanded="true"] svg {
+                        transform: translateY(-50%) rotate(90deg);
+                    }
+                }
+            }
+        }
+
+        .card-body {
+            padding: 0;
+            
+            .inner {
+                background: #eeeeee;
+                padding: 3rem 5rem;
+
+                p {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/3d15c8");
+  
+@font-face {
+  font-family: "SofiaPro";
+  font-weight: 600;
+  src: url('fonts/SofiaProBold/font.woff2') format('woff2'), url('webFonts/SofiaProBold/font.woff') format('woff');
+}
+@font-face {
+  font-family: "SofiaPro";
+  font-weight: 400;
+  src: url('fonts/SofiaProRegular/font.woff2') format('woff2'), url('webFonts/SofiaProRegular/font.woff') format('woff');
+}
+@font-face {
+  font-family: "SofiaPro";
+  font-weight: 500;
+  src: url('fonts/SofiaProMedium/font.woff2') format('woff2'), url('webFonts/SofiaProMedium/font.woff') format('woff');
+}

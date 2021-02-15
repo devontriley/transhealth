@@ -1,0 +1,64 @@
+.card.event {
+    border-radius: 1rem;
+    box-shadow: 0px 3px 16px #8EB1C743;
+    background: #fff;
+    z-index: 1;
+    margin-bottom: 3rem;
+    overflow: hidden;
+
+    &:nth-child(even) {
+        .img-wrapper {
+            @include media-breakpoint-up(lg) {
+                order: 2;
+            }
+        }
+    }
+
+    .card-cover-link {
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .card-body {
+        padding: 0;
+    }
+
+    .row {
+        margin: 0;
+    }
+
+    .img-wrapper {
+        position: relative;
+        overflow: hidden;
+        padding: 0;
+
+        img {
+            width: 100%;
+            @include media-breakpoint-up(lg) {
+                position: absolute;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .text-wrapper {
+        padding: 3rem;
+        align-self: stretch;
+        @include media-breakpoint-up(lg) {
+            padding: 4rem 8rem;
+        }
+        @media(min-width: 1440px) {
+            padding: 5rem 9rem;
+        }
+
+        .date {
+            color: $lightBlue;
+            font-size: 1.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+    }
+}

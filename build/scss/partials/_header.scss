@@ -1,0 +1,467 @@
+#header {
+    width: 100%;
+    height: 7rem;
+    line-height: 10rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    z-index: 22;
+    @include media-breakpoint-up(lg) {
+        height: 10rem;
+    }
+    @include media-breakpoint-up(xl) {
+        top: 0;
+        left: 5%;
+        padding: 0 5vw;
+    }
+
+    // White background for active scroll state.
+    &:before {
+        content: "";
+        background: #fff;
+        width: 100%;
+        left: 0;
+        top: 0;
+        height: 100%;
+        opacity: 0;
+        position: absolute;
+        transition: all 300ms ease;
+        @include media-breakpoint-up(xl) {
+            width: 120%;
+            left: -10%;
+        }
+        @media (min-width: 1440px){
+            width: 140%;
+            left: -20%;
+        }
+    }
+
+    &.scrollVisible {
+        position: fixed;
+        z-index: 18;
+        padding: 3rem 3.6rem;
+        transform: translateY(0);
+        transition: transform 300ms ease;
+        @include media-breakpoint-up(lg) {
+            padding: 3.6rem;
+        }
+        @media(min-width: 1440px){
+            padding: 0;
+            height: 11rem;
+            box-sizing: content-box;
+        }
+
+        &:before {
+            content: '';
+            opacity: 1;
+        }
+    }
+
+    .header-logo {
+        position: relative;
+        z-index: 12;
+
+        svg,
+        img  {
+            width: 15rem;
+            @include media-breakpoint-up(lg) {
+                width: 20rem;
+            }
+        }
+    }
+
+    .primary-nav {
+        display: none !important;
+        flex-wrap: nowrap;
+        align-items: center;
+        @include media-breakpoint-up(lg) {
+            //@extend .d-flex;
+            display: flex !important
+        }
+        @include media-breakpoint-up(xl) {
+            right: -5vw;
+            position: relative;
+        }
+
+        ul.menu {
+            @extend .d-flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            & > li {
+                list-style: none;
+                margin: 0 4rem 0 0;
+                padding: 0;
+                font-size: 1.8rem;
+                white-space: nowrap;
+                position: relative;
+
+                &:hover {
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                        height: .2rem;
+                        background: $red;
+                    }
+
+                    ul.sub-menu {
+                        display: block;
+                    }
+                }
+
+                & > a {
+                    display: block;
+                    height: 100%;
+                    color: $darkBlue;
+                    text-decoration: none !important;
+                }
+            }
+        }
+
+        ul.sub-menu {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background: #fff;
+            padding: 1rem 0;
+            z-index: 1;
+            box-shadow: 0px 3px 16px #8EB1C762;
+
+            li {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                line-height: 1;
+
+                a {
+                    color: $darkBlue;
+                    display: block;
+                    padding: 1rem 2rem;
+                    text-decoration: none !important;
+                    position: relative;
+
+                    &:hover {
+                        color: $red;
+                    }
+                }
+            }
+        }
+
+        .primary-nav-btn-wrapper {
+            position: relative;
+            align-self: stretch;
+        }
+
+        .primary-nav-btn {
+            background: $red;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
+            border-radius: 0;
+            height: 100%;
+            display: flex;
+        }
+    }
+
+    .mobile-controls {
+        width: 4rem;
+        height: 4rem;
+        position: relative;
+        z-index: 11;
+        @include media-breakpoint-up(lg) {
+            display: none;
+        }
+        @include media-breakpoint-up(xl){
+            margin-top: -.7rem;
+        }
+
+        &:after {
+            content: "";
+            width: 60px;
+            height: 60px;
+            display: none;
+            border-radius: 60pc;
+            border: 2px solid #C48B5C;
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            transition: all ease 300ms;
+            pointer-events: none;
+        }
+
+        button {
+            outline: none;
+            border: none;
+            background: transparent;
+            font-size: 0;
+
+            svg {
+                display: none;
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 100%;
+                transform: translateX(-50%);
+                transition: all ease 300ms;
+
+                &.active {
+                    display: block;
+                }
+
+                &.open {
+                    #animate-line {
+                        transition: all ease 300ms;
+                    }
+
+                    &:hover {
+                        #animate-line {
+                            transform: translate(10px, 22px);
+                        }
+                    }
+                }
+
+                &.close {
+                    width: 2.7rem;
+                    height: 2.7rem;
+                    @include media-breakpoint-up(lg){
+                    }
+                }
+            }
+        }
+    }
+}
+
+//NAV PANE STYLING
+#flyout-menu {
+    width: 100vw;
+    height: calc(100vh - 11.5rem);
+    top: 11.5rem;
+    padding: 0 4rem;
+    background: #fff;
+    opacity: 1;
+    position: absolute;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 10;
+    display: flex;
+    transform: translateX(100%);
+    transition: transform ease 500ms;
+    border-top: .2rem solid $red;
+    @include media-breakpoint-up(lg) {
+        display: none;
+    }
+
+    &.active {
+        transform: translateX(0);
+        display: flex;
+
+        &[data-animate="slide-in"] {
+            transform: translateX(0);
+        }
+    }
+
+    .menu-main-menu-container {
+        text-align: left;
+        flex: 0 0 100%;
+
+        .menu {
+            margin: 0;
+            padding: 0;
+
+            .menu-item {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                font-size: 2.4rem;
+                font-weight: 600;
+                border-bottom: .1rem solid #ddd;
+                position: relative;
+
+                a.item-link {
+                    color: $darkBlue;
+                    display: block;
+                    padding: 1.5rem 0;
+                    transition: color ease 200ms;
+
+                    &:hover {
+                        text-decoration: none;
+                        color: $red;
+                    }
+                }
+
+                svg {
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    fill: $red;
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+    &[data-animate="clip-path"] {
+        transition: all ease 500ms;
+        clip-path: circle(.1px at calc(90% - 30px) calc(5.5vh + 20px));
+        @include media-breakpoint-up(lg){
+            clip-path: circle(0.1px at calc(100% - 5.5vw) calc(5.5vh + 40px));
+        }
+        @include media-breakpoint-up(xl){
+            clip-path: circle(.1px at calc(90% - 20px) calc(5.5vh + 20px));
+        }
+    
+        //do not use clip path on ie 11
+        @media all and (-ms-high-contrast:none)
+        {
+            clip-path: none;
+            transform: translateX(100%);
+        }
+    }
+
+    &[data-animate="slide-in"] {
+        transition: all ease 300ms;
+        transform: translateX(100%);
+    }
+
+
+
+    .inner {
+        margin-left: 10%;
+        @include media-breakpoint-up(lg){
+            margin-left: 23.333vw;
+            width: 50%;
+        }
+        .menu {
+            list-style: none;
+            padding-left: 0;
+
+            &#nav-pane-mobile-menu {
+                display: block;
+                @include media-breakpoint-up(lg){
+                    display: none;
+                }
+                li {
+                    margin-bottom: 2.6rem;
+
+                    a {
+                        //font-family: "Double Medium";
+                        text-decoration: underline;
+                        font-size: 2.4rem;
+                        //color: $bgForest;
+                    }
+
+                    &:last-child {
+                        a {
+                            //color: $tan;
+                        }
+                    }
+                }
+
+                @include media-breakpoint-up(xl){
+                    display: none;
+                }
+            }
+
+            &#nav-pane-menu {
+                margin-top: 7rem;
+                position: relative;
+                z-index: 3;
+                @include media-breakpoint-up(lg){
+                    margin-top: 4rem;
+                }
+                @include media-breakpoint-up(xl){
+                    margin-top: 0;
+                }
+
+                li {
+                    margin-bottom: 2.6rem;
+
+                    a {
+                        //font-family: "Work Sans Bold";
+                        //color: $bgForest;
+                        font-size: 1.6rem;
+                        text-transform: uppercase;
+                        transition: all ease 300ms;
+                        letter-spacing: .1rem;
+                        @include media-breakpoint-up(lg){
+                            font-size: 4rem;
+                            font-family: "Double Medium";
+                            text-transform: none;
+                            letter-spacing: 0;
+
+                            &:hover {
+                                //color: $tan;
+                            }
+                        }
+                        @include media-breakpoint-up(xl){
+                            font-size: 4.167vw;
+                        }
+                        @media(min-width: 1900px){
+                            font-size: 7.6rem;
+                        }
+
+                        .integer {
+                            font-size: 2.4rem;
+                            display: none;
+                            @include media-breakpoint-up(lg){
+                                display: inline-block;
+                                margin-right: 2rem;
+                                //color: $bgForest;
+                            }
+                            @include media-breakpoint-up(xl){
+                                font-size: 1.736vw;
+                            }
+                            @media(min-width: 1900px){
+                                font-size: 3.29rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//BARBA ANIMATION PANES
+.animation-pane {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    //display: block;
+    display: none;
+    left: 0;
+    z-index: 999;
+
+    svg,
+    img  {
+        width: 10rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 1;
+        transition: all ease 300ms;
+    }
+
+    &#animation-pane-vertical {
+        background-color: #f73655;
+        transform: scaleY(1);
+    }
+}

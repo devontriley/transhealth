@@ -1,0 +1,65 @@
+.card-container:nth-last-child(-n+2) .card.staff {
+    @include media-breakpoint-up(lg) {
+        margin-bottom: 0;
+    }
+}
+
+.card.staff {
+    background: transparent;
+    z-index: 1;
+    margin-bottom: 3rem;
+    border: none;
+    position: relative;
+    @include media-breakpoint-up(lg) {
+        margin-bottom: 5rem;
+    }
+
+    .card-cover-link {
+        position: absolute;
+        z-index: 1;
+        display: block;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .card-body {
+        padding: 0;
+        margin: 0;
+        border: none;
+    }
+
+    .img-wrapper {
+        position: relative;
+        min-height: 29rem;
+        order: 2;
+        overflow: hidden;
+        margin-bottom: 1rem;
+        @include media-breakpoint-up(lg) {
+            margin-bottom: 2rem;
+        }
+        @media(min-width: 1440px) {
+            min-height: 32rem;
+        }
+
+        img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 1rem;
+        }
+    }
+
+    .text-wrapper {
+        .name {
+            font-weight: 600;
+            color: $lightBlue;
+            margin: 0;
+        }
+
+        .title {
+            margin: 0;
+        }
+    }
+}

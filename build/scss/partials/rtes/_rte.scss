@@ -1,0 +1,104 @@
+.rte.standard {
+    position: relative;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    @media(min-width: 1440px) {
+        margin-top: 11rem;
+        margin-bottom: 11rem;
+    }
+
+    .main-header {
+        text-align: right;
+        @include media-breakpoint-up(lg){
+            margin-right: -15%;
+        }
+    }
+    
+    &.inset {
+
+        .text-container {
+            position: relative;
+            @media(min-width: 1440px) {
+                margin-top: -4rem;
+            }
+
+            &:before {
+                content: '';
+                background: $insetGradient;
+                width: 100vw;
+                height: 80%;
+                position: absolute;
+                z-index: -1;
+                right: -2rem;
+                bottom: -8vw;
+                @include media-breakpoint-up(lg){
+                    height: 100%;
+                    width: 50vw;
+                    bottom: 0;
+                    right: -5vw;
+                    transform: translateY(20%);
+                }
+                @media(min-width: 1440px) {
+                    right: -10vw;
+                }
+            }
+
+            .text-inner {
+                background-color: #fff;
+                box-shadow: 0px 3px 16px #8EB1C762;
+                padding: 3rem;
+                z-index: 5;
+                position: relative;
+                @media(min-width: 1440px) {
+                    padding: 7rem 10rem;
+                }
+
+                h2 {
+                    @include media-breakpoint-down(lg) {
+                        margin-bottom: .5em;
+                    }
+                }
+
+                p {
+                    margin-top: 0;
+                }
+
+                .btn {
+                    @include media-breakpoint-up(lg) {
+                        margin-top: 3rem;
+                    }
+                }
+
+                .grid-wrapper {
+
+                    .card-body {
+                        @extend .d-flex;
+                        flex-wrap: nowrap;
+                        align-items: center;
+                        padding: 0;
+                        margin-bottom: 2rem;
+                    }
+                }
+            }
+        }
+    }
+
+    &.minimal {
+        margin-bottom: 11rem;
+        
+        .text-container {
+            margin: 0 auto;
+            text-align: left;
+
+            p {
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+            
+            .btn {
+                margin-top: 2em;
+            }
+        }
+    }
+}

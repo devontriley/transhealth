@@ -1,0 +1,26 @@
+#promo-banner {
+    margin: 0;
+    padding: 0;
+    background-color: $lightBlue;
+    border: none;
+    height: 4.5rem;
+    line-height: 4.5rem;
+    text-align: center;
+    @media(min-width: 1440px) {
+        height: 6rem;
+        line-height: 6rem;
+    }
+
+    p {
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin: 0 auto;
+        text-align: center;
+        display: inline-block;
+
+        a {
+            color: #fff;
+        }
+    }
+}

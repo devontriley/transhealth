@@ -1,0 +1,27 @@
+.card.icon-text {
+    border: none;
+    background: none;
+
+    .img-wrapper {
+        display: inline-block;
+    }
+
+    .text-wrapper {
+        display: inline-block;
+    }
+
+    .card-header {
+        background: none !important;
+        border: none;
+        font-size: 1.6rem;
+        padding: 0;
+        margin: 0 0 0 2rem;
+    }
+
+    .img-wrapper {
+        img {
+            width: 6rem;
+            height: 6rem;
+        }
+    }
+}

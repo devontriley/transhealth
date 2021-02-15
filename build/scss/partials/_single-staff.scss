@@ -1,0 +1,100 @@
+.staff-single {
+    position: relative;
+    @media(min-width: 1440px) {
+        margin-top: 7rem;
+        margin-bottom: 11rem;
+    }
+
+    .primary-details {
+        img {
+            margin-bottom: 1.5rem;
+            width: 18rem;
+            height: 18rem;
+            border-radius: 18rem;
+            object-fit: cover;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .name {
+            font-size: 2rem;
+            font-weight: 600;
+            color: $lightBlue;
+        }
+
+        .title {
+
+        }
+
+        .pronouns {
+
+        }
+
+        .btn {
+            margin-top: 3rem;
+        }
+    }
+
+    .secondary-details {
+
+        .nav {
+            border: none;
+            flex-wrap: wrap;
+            @include media-breakpoint-up(md) {
+                flex-wrap: nowrap;
+            }
+
+            .nav-item {
+                flex: 0 0 100%;
+                @include media-breakpoint-up(md) {
+                    flex: 0 0 auto;
+                }
+
+                &:not(:first-child) .nav-link {
+                    @include media-breakpoint-up(md) {
+                        margin-left: -1px;
+                    }
+                }
+
+                .nav-link {
+                    font-size: 1.6rem;
+                    font-weight: 600;
+                    color: $lightBlue;
+                    height: 6rem;
+                    line-height: 6rem;
+                    padding: 0 2rem;
+                    border: 1px solid $lightBlue;
+                    @include media-breakpoint-up(lg) {
+                        padding: 0 4rem;
+                    }
+
+                    &.active {
+                        background: $lightBlue;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+        .tab-content {
+            border: 1px solid $lightBlue;
+            padding: 4rem;
+            margin-bottom: 5rem;
+
+            h4 {
+                font-weight: 600;
+                font-size: 1.8rem;
+
+                &:not(:first-child) {
+                    margin-top: 2em;
+                }
+            }
+
+            p {
+                margin: 0;
+            }
+        }
+    }
+}

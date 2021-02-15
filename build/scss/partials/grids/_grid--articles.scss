@@ -1,0 +1,27 @@
+.grid.articles {
+    position: relative;
+
+    .row {
+        margin: 3rem -1.5rem;
+        @media(min-width: 1440px) {
+            margin: 2.08vw -1.5rem;
+        }
+        @media(min-width: 1920px) {
+            margin: 4rem -1.5rem;
+        }
+
+        .card-container {
+            margin-top: 30px;
+        }
+
+        .card {
+            margin: 0;
+        }
+    }
+
+    &.related {
+        @include media-breakpoint-up(md) {
+            padding: 4rem 0;
+        }
+    }
+}

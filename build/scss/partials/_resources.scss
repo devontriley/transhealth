@@ -1,0 +1,66 @@
+.resources-wrapper {
+    @media(min-width: 1440px) {
+        margin-top: 11rem;
+        margin-bottom: 11rem;
+    }
+
+    .inner {
+
+    
+    }
+
+    .filters-container {
+        background: #fff;
+        box-shadow: 0px 3px 16px #8EB1C729;
+        width: 100%;
+        padding: 3rem;
+
+        .header {
+            font-size: 2rem;
+            font-weight: 600;
+            color: $lightBlue;
+            margin-top: 0;
+        }
+
+        .taxonomy {
+            .name {
+
+            }
+
+            .option {
+                margin-bottom: .5rem;
+
+                label {
+                    cursor: pointer;
+                }
+
+                input {
+                    padding: 0;
+                    margin: 0 1rem 0 0;
+                    vertical-align: middle;
+                }
+
+                p {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin: 0;
+                    user-select: none;
+                }
+            }
+        }
+    }
+
+    .results-container {
+        
+        .intro-copy {
+
+            p:first-child {
+                margin-top: 0;
+            }
+        }
+
+        ul {
+            padding-left: 0;
+        }
+    }
+}
