@@ -62,7 +62,7 @@
                 
                 <div class="header-logo">
                     <a class="header-link" href="<?php echo home_url(); ?>" aria-label="Return to Home Page">
-                        <img class='logo' src='<?php echo home_url(); ?>/wp-content/themes/transhealth/assets/logo.svg'>
+                        <img class='logo' alt="Transhealth Logo" src='<?php echo home_url(); ?>/wp-content/themes/transhealth/assets/logo.svg'>
                     </a>
                 </div>
 

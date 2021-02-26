@@ -4,6 +4,7 @@
             <!-- TODO: Make sure action is right!! --> 
             <form action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate night contact" target="_blank" novalidate>
                 <div class="mc-field-group form-group">
+                    <p id="EMAIL-label" style="font-size: 0">Email:</p>
                     <input type="email" value="" name="EMAIL" class="required email form-control" placeholder="Email" id="mce-EMAIL">
                 </div>
 

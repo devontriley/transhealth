@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-md-3 logo-col">
                 <a class="logo-link" href="<?php echo home_url(); ?>" aria-label="Return to Home Page">
-                    <img class='logo' src='<?php echo home_url(); ?>/wp-content/themes/transhealth/assets/img/logo-white.svg'>
+                    <img class='logo' alt="Transhealth Logo" src='<?php echo home_url(); ?>/wp-content/themes/transhealth/assets/img/logo-white.svg'>
                 </a>
 
                 <div class="sm-links">

@@ -7,7 +7,11 @@ $link = get_the_permalink($id);
 ?>
 
 <div class="card staff">
-    <a class="card-cover-link" href="<?php echo $link ?>"></a>
+    <a class="card-cover-link" href="<?php echo $link ?>">
+        <span style="font-size: 0">
+                View staff: <?php echo $name ?>
+        </span>
+    </a>
     <div class="card-body">
         <div class="img-wrapper">
             <?php echo imageTag($photo) ?>
