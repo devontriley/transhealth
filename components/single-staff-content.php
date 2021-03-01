@@ -2,7 +2,7 @@
 $name = get_the_title();
 $link = get_the_permalink();
 $id = get_the_ID();
-$photo = get_field('photo');
+$photo = get_field('staff_photo');
 $pronouns = get_field('pronouns');
 $title = get_field('title');
 $hobbies = get_field('hobbies');
