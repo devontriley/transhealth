@@ -22,14 +22,12 @@
             font-size: 2rem;
             font-weight: 600;
             color: $lightBlue;
-        }
-
-        .title {
-
-        }
-
-        .pronouns {
-
+            @media(min-width: 1440px) {
+                font-size: 1.666vw;
+            }
+            @media(min-width: 1920px) {
+                font-size: 3.2rem;
+            }
         }
 
         .btn {

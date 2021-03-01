@@ -52,69 +52,97 @@ add_action( 'wp_enqueue_scripts', 'bones_load_scripts' );
 
 // TAXONOMY FILTERING FOR RESOURCES
 
-function resourceTaxFilter(){
+function resourceTaxFilter()
+{
     $selectedFilters = $_POST['filters'];
-    $taxQuery = array(
-        'relation' => 'AND'
-    );
     $html = '';
-
-    foreach($selectedFilters as $key => $value) {
-        array_push($taxQuery, array(
-            'taxonomy' => $key,
-            'field' => 'slug',
-            'terms' => $value
-        ));
-    }
-
-    $args = array(
-        'orderby' => 'date',
-        'post_type' => 'resources',
-        'posts_per_page' => -1,
-        'tax_query' => $taxQuery
+    
+    $returnObj = array(
+        'html' => '',
+        'total' => 0,
+        'filters' => $selectedFilters,
+        'query_vars' => null
     );
 
-    // echo json_encode($args);
-    // wp_die();
+    if($selectedFilters)
+    {
+        $taxQuery = array(
+            'relation' => 'AND'
+        );
 
-    $query = new WP_Query( $args );
+        foreach($selectedFilters as $key => $value) 
+        {
+            foreach($value as $v)
+            {
+                array_push($taxQuery, array(
+                    'taxonomy' => $key,
+                    'field' => 'slug',
+                    'terms' => $v
+                ));
+            }
+        }
 
-    //echo json_encode($query->found_posts);
+        $args = array(
+            'orderby' => 'date',
+            'post_type' => 'resources',
+            'posts_per_page' => -1,
+            'tax_query' => $taxQuery
+        );
 
-    if( $query->have_posts() ) :
-        while( $query->have_posts() ): $query->the_post();
-            
-            $resource = $query->post;
-            $title = $resource->post_title;
-            $id = $resource->ID;
-            $image = get_field('image', $id);
-            $link = get_field('resource_link', $id);
-            
-            ob_start();
-        ?>
-            <div class="card-container col-md-12">
-                <div class="card resource">
-                    <a target="_BLANK" class="card-cover-link" href="<?php echo $link ?>" aria-label="View Resource: <?php echo $title ?>"></a>
-                    <div class="card-body row">
-                        <div class="img-wrapper col-md-4">
-                            <?php echo imageTag($image, 'img'); ?>
-                        </div>
-                        <div class="text-wrapper col-md-8">
-                            <h2 class="title card-title"><?php echo $title ?></h2>
-                            <a target="_BLANK" href="<?php echo $link ?>" class="card-link expand btn" aria-label="View Resource: <?php echo $title ?>">
-                                <span class="learn-more">View Resource</span>
-                            </a>
+        $query = new WP_Query( $args );
+
+        $returnObj['query_vars'] = $query->query_vars;
+
+        if( $query->have_posts() ) :
+
+            $returnObj['total'] = count($query->posts);
+
+            while( $query->have_posts() ): $query->the_post();
+                
+                $resource = $query->post;
+                $title = $resource->post_title;
+                $id = $resource->ID;
+                $mediaType = wp_get_post_terms($id, 'media_type');
+                $image = (get_field('image', $id)) ? get_field('image', $id) : get_field('resource_media_type_image', 'term_'.$mediaType[0]->term_id);
+                $link = get_field('resource_link', $id);
+                $tags = wp_get_post_terms($id, array('audiences', 'media_type', 'topics'));
+                
+                ob_start();
+            ?>
+                <div class="card-container col-md-12">
+                    <div class="card resource">
+                        <a target="_BLANK" class="card-cover-link" href="<?php echo $link ?>" aria-label="View Resource: <?php echo $title ?>"></a>
+                        <div class="card-body row">
+                            <div class="img-wrapper col-md-4">
+                                <?php echo imageTag($image, 'img'); ?>
+                            </div>
+                            <div class="text-wrapper col-md-8">
+                            <?php $counter = 0; if($tags) { ?>
+                                <p class="tags">
+                                <?php foreach($tags as $t) {
+                                    echo (!$counter) ? $t->name : ' | ' . $t->name;
+                                $counter++; } ?>
+                                </p>
+                            <?php } ?>
+                                <h3 class="title card-title"><?php echo $title ?></h3>
+                                <a href="<?php echo $link ?>" class="card-link expand btn" aria-label="View Resource: <?php echo $title ?>">
+                                    <span class="learn-more">View Resource</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <?php 
-            $html .= ob_get_clean();
-        endwhile;
-        echo $html; 
-        wp_reset_postdata();
-    endif;
+                <?php 
+                $html .= ob_get_clean();
+            endwhile;
+            wp_reset_postdata();
+        endif;
+
+        $returnObj['html'] = $html;
+    }
+
+    echo json_encode($returnObj); 
 
     wp_die();
 }
@@ -348,105 +376,99 @@ function custom_post_types()
     
     register_post_type( 'Resources', $args );
 }
-
 add_action( 'init', 'custom_post_types' );
 
-
-
 // CUSTOM TAXONOMIES 
+function create_taxonomies() 
+{
+    $audienceLabels = array(
+        'name' => _x( 'Audiences', 'taxonomy general name' ),
+        'singular_name' => _x( 'Audience', 'taxonomy singular name' ),
+        'search_items' =>  __( 'Search Audiences' ),
+        'popular_items' => __( 'Popular Audiences' ),
+        'all_items' => __( 'All Audiences' ),
+        'parent_item' => null,
+        'parent_item_colon' => null,
+        'edit_item' => __( 'Edit Audience' ), 
+        'update_item' => __( 'Update Audience' ),
+        'add_new_item' => __( 'Add New Audience' ),
+        'new_item_name' => __( 'New Audience Name' ),
+        'separate_items_with_commas' => __( 'Separate audiences with commas' ),
+        'add_or_remove_items' => __( 'Add or remove audiences' ),
+        'choose_from_most_used' => __( 'Choose from the most used audiences' ),
+        'menu_name' => __( 'Audiences' ),
+    ); 
 
-function create_taxonomies() {
-    //1. AUDIENCE
-  $audienceLabels = array(
-    'name' => _x( 'Audiences', 'taxonomy general name' ),
-    'singular_name' => _x( 'Audience', 'taxonomy singular name' ),
-    'search_items' =>  __( 'Search Audiences' ),
-    'popular_items' => __( 'Popular Audiences' ),
-    'all_items' => __( 'All Audiences' ),
-    'parent_item' => null,
-    'parent_item_colon' => null,
-    'edit_item' => __( 'Edit Audience' ), 
-    'update_item' => __( 'Update Audience' ),
-    'add_new_item' => __( 'Add New Audience' ),
-    'new_item_name' => __( 'New Audience Name' ),
-    'separate_items_with_commas' => __( 'Separate audiences with commas' ),
-    'add_or_remove_items' => __( 'Add or remove audiences' ),
-    'choose_from_most_used' => __( 'Choose from the most used audiences' ),
-    'menu_name' => __( 'Audiences' ),
-  ); 
-  
-  register_taxonomy('audiences','resources',array(
-    'hierarchical' => false,
-    'labels' => $audienceLabels,
-    'show_ui' => true,
-    'show_in_rest' => true,
-    'show_admin_column' => true,
-    'update_count_callback' => '_update_post_term_count',
-    'query_var' => true,
-    'rewrite' => array( 'slug' => 'audience' ),
-  ));
+    register_taxonomy('audiences','resources', array(
+        'hierarchical' => false,
+        'labels' => $audienceLabels,
+        'show_ui' => true,
+        'show_in_rest' => true,
+        'show_admin_column' => true,
+        'update_count_callback' => '_update_post_term_count',
+        'query_var' => true,
+        'rewrite' => array( 'slug' => 'audience' ),
+    ));
 
-  //2. MEDIA
-$mediaLabels = array(
-    'name' => _x( 'Media Types', 'taxonomy general name' ),
-    'singular_name' => _x( 'Media Type', 'taxonomy singular name' ),
-    'search_items' =>  __( 'Search Media Types' ),
-    'popular_items' => __( 'Popular Media Types' ),
-    'all_items' => __( 'All Media Types' ),
-    'parent_item' => null,
-    'parent_item_colon' => null,
-    'edit_item' => __( 'Edit Media Type' ), 
-    'update_item' => __( 'Update Media Type' ),
-    'add_new_item' => __( 'Add New Media Type' ),
-    'new_item_name' => __( 'New Media Type Name' ),
-    'separate_items_with_commas' => __( 'Separate media types with commas' ),
-    'add_or_remove_items' => __( 'Add or remove media types' ),
-    'choose_from_most_used' => __( 'Choose from the most used media types' ),
-    'menu_name' => __( 'Media Types' ),
-  ); 
 
-  register_taxonomy('media','resources',array(
-    'hierarchical' => false,
-    'labels' => $mediaLabels,
-    'show_ui' => true,
-    'show_in_rest' => true,
-    'show_admin_column' => true,
-    'update_count_callback' => '_update_post_term_count',
-    'query_var' => true,
-    'rewrite' => array( 'slug' => 'media' ),
-  ));
+    $mediaLabels = array(
+        'name' => _x( 'Media Types', 'taxonomy general name' ),
+        'singular_name' => _x( 'Media Type', 'taxonomy singular name' ),
+        'search_items' =>  __( 'Search Media Types' ),
+        'popular_items' => __( 'Popular Media Types' ),
+        'all_items' => __( 'All Media Types' ),
+        'parent_item' => null,
+        'parent_item_colon' => null,
+        'edit_item' => __( 'Edit Media Type' ), 
+        'update_item' => __( 'Update Media Type' ),
+        'add_new_item' => __( 'Add New Media Type' ),
+        'new_item_name' => __( 'New Media Type Name' ),
+        'separate_items_with_commas' => __( 'Separate media types with commas' ),
+        'add_or_remove_items' => __( 'Add or remove media types' ),
+        'choose_from_most_used' => __( 'Choose from the most used media types' ),
+        'menu_name' => __( 'Media Types' ),
+    ); 
 
-//3. TOPIC
-$topicLabels = array(
-    'name' => _x( 'Topics', 'taxonomy general name' ),
-    'singular_name' => _x( 'Topic', 'taxonomy singular name' ),
-    'search_items' =>  __( 'Search Topics' ),
-    'popular_items' => __( 'Popular Topics' ),
-    'all_items' => __( 'All Topics' ),
-    'parent_item' => null,
-    'parent_item_colon' => null,
-    'edit_item' => __( 'Edit Topic' ), 
-    'update_item' => __( 'Update Topic' ),
-    'add_new_item' => __( 'Add New Topic' ),
-    'new_item_name' => __( 'New Topic Name' ),
-    'separate_items_with_commas' => __( 'Separate topics with commas' ),
-    'add_or_remove_items' => __( 'Add or remove topics' ),
-    'choose_from_most_used' => __( 'Choose from the most used topics' ),
-    'menu_name' => __( 'Topics' ),
-  ); 
+    register_taxonomy('media_type','resources',array(
+        'hierarchical' => false,
+        'labels' => $mediaLabels,
+        'show_ui' => true,
+        'show_in_rest' => true,
+        'show_admin_column' => true,
+        'update_count_callback' => '_update_post_term_count',
+        'query_var' => true,
+        'rewrite' => array( 'slug' => 'media_type' ),
+    ));
 
-  register_taxonomy('topics','resources',array(
-    'hierarchical' => false,
-    'labels' => $topicLabels,
-    'show_ui' => true,
-    'show_in_rest' => true,
-    'show_admin_column' => true,
-    'update_count_callback' => '_update_post_term_count',
-    'query_var' => true,
-    'rewrite' => array( 'slug' => 'topic' ),
-  ));
+    $topicLabels = array(
+        'name' => _x( 'Topics', 'taxonomy general name' ),
+        'singular_name' => _x( 'Topic', 'taxonomy singular name' ),
+        'search_items' =>  __( 'Search Topics' ),
+        'popular_items' => __( 'Popular Topics' ),
+        'all_items' => __( 'All Topics' ),
+        'parent_item' => null,
+        'parent_item_colon' => null,
+        'edit_item' => __( 'Edit Topic' ), 
+        'update_item' => __( 'Update Topic' ),
+        'add_new_item' => __( 'Add New Topic' ),
+        'new_item_name' => __( 'New Topic Name' ),
+        'separate_items_with_commas' => __( 'Separate topics with commas' ),
+        'add_or_remove_items' => __( 'Add or remove topics' ),
+        'choose_from_most_used' => __( 'Choose from the most used topics' ),
+        'menu_name' => __( 'Topics' ),
+    ); 
+
+    register_taxonomy('topics','resources',array(
+        'hierarchical' => false,
+        'labels' => $topicLabels,
+        'show_ui' => true,
+        'show_in_rest' => true,
+        'show_admin_column' => true,
+        'update_count_callback' => '_update_post_term_count',
+        'query_var' => true,
+        'rewrite' => array( 'slug' => 'topic' ),
+    ));
 }
-
 add_action( 'init', 'create_taxonomies', 0 );
 
 
@@ -456,8 +478,8 @@ add_action( 'init', 'create_taxonomies', 0 );
  * Google Calendar Integration
  */
 
-require_once 'google-api-php-client--PHP7.4/vendor/autoload.php';
-include_once 'google-api-php-client--PHP7.4/examples/templates/base.php';
+// require_once 'google-api-php-client--PHP7.4/vendor/autoload.php';
+// include_once 'google-api-php-client--PHP7.4/examples/templates/base.php';
 
 function get_google_calendar_service()
 {
@@ -538,7 +560,7 @@ function post_unpublished($id, $post)
     //     fclose($fp);
     // }
 }
-add_action( 'publish_tribe_events', 'post_unpublished', 10, 2);
-add_action( 'trash_tribe_events', 'post_unpublished', 10, 2);
+// add_action( 'publish_tribe_events', 'post_unpublished', 10, 2);
+// add_action( 'trash_tribe_events', 'post_unpublished', 10, 2);
 
 ?>

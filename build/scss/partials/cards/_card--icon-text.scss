@@ -19,9 +19,25 @@
     }
 
     .img-wrapper {
-        img {
+
+        .image {
+            border: .2rem solid $lightBlue;
+            border-radius: 6rem;
             width: 6rem;
             height: 6rem;
+            text-align: center;
+            line-height: 6rem;
+            @include media-breakpoint-up(lg) {
+                width: 8rem;
+                height: 8rem;
+                border-radius: 8rem;
+                line-height: 8rem;
+            }
+        }
+
+        img {
+            max-width: 65%;
+            max-height: 65%;
         }
     }
 }

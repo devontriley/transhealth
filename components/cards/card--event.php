@@ -8,7 +8,7 @@
     $endTime = tribe_get_end_time($id);
 ?>
 
-<div class="card event">
+<div class="card event"data-scroll-effect="">
     <a class="card-cover-link" href="<?php echo $link ?>" aria-label="View Event: <?php echo $title ?>"></a>
     <div class="card-body row">
         <div class="img-wrapper col-md-5">

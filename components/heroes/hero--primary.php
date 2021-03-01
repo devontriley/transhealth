@@ -4,7 +4,7 @@ if(!$header) $header = get_sub_field('header');
 if(!$copy) $copy = get_sub_field('copy');
 ?>
 
-<div class="jumbotron hero home-hero section module-flush">
+<div class="jumbotron hero home-hero section module-flush" data-scroll-effect="">
     <div class="row">
         <div class="col-md-6 order-2 text-container-col">
             <div class="text-container">
@@ -48,6 +48,10 @@ if(!$copy) $copy = get_sub_field('copy');
     <!-- scroll button -->
     <div class="scroll-arrow">
         <span>Scroll Down</span>
+        <svg viewBox="0 0 10.86 16.8">
+            <use href="#right-arrow"></use>
+        </svg>
+    </svg>
     </div>
 </div>
 

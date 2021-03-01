@@ -54,6 +54,7 @@
 
             .carousel-item.slider-card {
                 height: 100%;
+                background: #fff;
 
                 .text-container {
                     
@@ -98,6 +99,7 @@
                 left: 3rem;
                 bottom: 2.5rem;
                 text-align: center;
+                z-index: 10;
                 @include media-breakpoint-up(lg) {
                     left: 3rem;
                     bottom: 3rem;

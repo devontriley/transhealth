@@ -39051,6 +39051,37 @@ return paper;
 //LET ME USE THE $ FOR JQUERY
 window.$ = window.jQuery = jQuery;
 
+let windowHeight = window.innerHeight;
+
+EasingFunctions = {
+    // no easing, no acceleration
+    linear: t => t,
+    // accelerating from zero velocity
+    easeInQuad: t => t*t,
+    // decelerating to zero velocity
+    easeOutQuad: t => t*(2-t),
+    // acceleration until halfway, then deceleration
+    easeInOutQuad: t => t<.5 ? 2*t*t : -1+(4-2*t)*t,
+    // accelerating from zero velocity
+    easeInCubic: t => t*t*t,
+    // decelerating to zero velocity
+    easeOutCubic: t => (--t)*t*t+1,
+    // acceleration until halfway, then deceleration
+    easeInOutCubic: t => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1,
+    // accelerating from zero velocity
+    easeInQuart: t => t*t*t*t,
+    // decelerating to zero velocity
+    easeOutQuart: t => 1-(--t)*t*t*t,
+    // acceleration until halfway, then deceleration
+    easeInOutQuart: t => t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t,
+    // accelerating from zero velocity
+    easeInQuint: t => t*t*t*t*t,
+    // decelerating to zero velocity
+    easeOutQuint: t => 1+(--t)*t*t*t*t,
+    // acceleration until halfway, then deceleration
+    easeInOutQuint: t => t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t
+}
+
 //Run mobile check and if on mobile, add mobile class to HTML tag.
 let mounted = false;
 mobilecheck = () => {
@@ -39110,179 +39141,273 @@ let scroll = window.requestAnimationFrame ||
 
 //Navigational control.
 navToggle = () => {
-    $('#header').toggleClass('nav-active');
-    $('.hamburger-control svg').toggleClass('active');
-    $('#nav-pane').toggleClass('active');
-    $('.nav').toggleClass('active');
-    $('.hero-img').toggleClass('mobile-nav-active');
-    $('.nav-drawer-asset').toggleClass('active');
-
-    if($('.hamburger-control').attr('aria-expanded') == 'false'){
-        $(".hamburger-control").attr("aria-expanded","true");
-    } else {
-        $(".hamburger-control").attr("aria-expanded","false");
-    }
-
-    if(!$('body').hasClass('mobile-nav-active')){
-        $('body').toggleClass('mobile-nav-active');
-    } else {
-        setTimeout(function(){
-            $('body').toggleClass('mobile-nav-active');
-        }, 450);
-    }
+    $('body').toggleClass('nav-active');
+    $('.hamburger--collapse').toggleClass('is-active');
 }
-
 $('.mobile-controls').on('click', function(){
     navToggle();
 });
 
-navClose = () => {
-    if($('#nav-pane').hasClass('active')){
-        $('#header').removeClass('nav-active');
-        $('.hamburger-control svg').toggleClass('active');
-        $('#nav-pane').removeClass('active');
-        $('.nav').removeClass('active');
-        $('body').removeClass('mobile-nav-active');
-        $('.hero-img').removeClass('mobile-nav-active');
-        $(".hamburger-control").attr("aria-expanded","false");
-    }
-}
-
-//Nav appears on scroll up.
-let scrollThrottle = 250,
-throttled = false,
-lastScrollY = 0,
-scrollDirection = 0,
-ticking = false;
-
-navScroll = () =>
-{
-    let scrollY = (window.scrollY < 0) ? 0 : window.scrollY;
-    let diff = lastScrollY - scrollY;
-
-    scrollDirection = diff / Math.abs(diff);
-    lastScrollY = scrollY;
-
-    requestTick(scrollY);
-}
-
-requestTick = (scrollY) =>
-{
-    if(!ticking)
-    {
-        scroll(function(){navAnimate(scrollY)});
-
-        ticking = true;
-    }
-}
-
-navAnimate = (scrollY) =>
-{
-if(!$(document.body).hasClass('mobile-nav-active'))
-{
-    if(scrollY === 0)
-    {
-        if($('header').hasClass('scrollVisible'))
-        {
-            $('#header').removeClass('scrollVisible readyOut');
-        }
-    }
-    else
-    {
-        if(scrollDirection > 0)
-        {
-            if(!$('#header').hasClass('scrollVisible'))
-            {
-                $('#header').removeClass('readyOut').addClass('readyIn');
-
-                setTimeout(function()
-                {
-                    $('#header').addClass('scrollVisible');
-                    $('#header').removeClass('readyIn');
-                }, 0);
-            }
-        }
-        else
-        {
-            if($('#header').hasClass('scrollVisible'))
-            {
-                $('#header').addClass('readyOut');
-
-                setTimeout(function()
-                {
-                    $('#header').removeClass('scrollVisible'); 
-                }, 300);
-            }
-
-        }
-    }
-
-    ticking = false;
-}
-}
-
-//If you want to disable this on any page, you can do it here.
-//let navScrollListener = !(window.location.pathname === '/');
-//if(navScrollListener) window.addEventListener('scroll', navScroll, false);
-
 
 // RESOURCES QUERY SYSTEM 
-if(document.getElementById('resource-module')){
-    let input = $('.option input');
+if(document.getElementById('resource-module'))
+{
+    let button = $('.taxonomy button');
     let selectedFilters = {
-        media : [],
-        audiences : [],
+		audiences : [],
+		media_type : [],
         topics : []
-    }; 
+	}; 
+	let term, taxonomy, featuredBlock, resultsBlock, container, heading, isChecked, checkedTotal;
+	
+	function updateResults(button, data)
+	{
+		console.log(data);
+
+		// 0 results with no selected options
+		// Change header to 'nothing found'
+		// Empty .results-inner
+		if(!data.total && !checkedTotal)
+		{
+			console.log('test');
+			$(container).hide();
+			$(heading).empty().html('Nothing found');
+
+			$(resultsBlock).hide();
+			$(featuredBlock).show();
+		}
+
+		// 0 results with selected options
+		if(!data.total && checkedTotal)
+		{
+			$(container).hide();
+			$(heading).empty().html('Nothing found');
+
+			$(resultsBlock).show();
+			$(featuredBlock).hide();
+		}
+
+		// 1+
+		// Update header
+		// Add results to .results-inner
+		if(data.total)
+		{
+			let string = 'Resources By Term: ';
+			let counter = 0;
+
+			for (const [key, value] of Object.entries(data.filters)) 
+			{
+				for(let i = 0; i < value.length; i++)
+				{
+					string += (counter) ? `<span id="term-${term}"><span class="comma">, </span>${value[i]}</span>` : `<span id="term-${term}">${value[i]}</span>`;
+					counter++;
+				}
+			}
+
+			$(heading).html(string); 
+			$(container).html(data.html);
+
+			$(featuredBlock).hide();
+			$(resultsBlock).show();
+			$(container).show();
+		}
+	}
     
-    $(input).on('change', function(e){
-        let term = e.target.getAttribute('data-term'); 
-        let taxonomy = e.target.getAttribute('data-tax');
-        let container = $('.results-container .featured-inner');
-        let heading = $('.featured-header');
+    $(button).on('click', function(e)
+	{
+		let button = $(this);
 
-        console.log(taxonomy, term, selectedFilters[taxonomy]);
+		button.toggleClass('active');
 
-        if($(this).is(':checked')){
-            console.log('checked');
-            // add to selected filters object
-            selectedFilters[taxonomy].push(term); 
-        } else {
-            console.log('unchecked');
-            let index = selectedFilters[taxonomy].indexOf(term);
-            console.log(index);
-            // remove from selected filters object
-            selectedFilters[taxonomy].splice(index, 1); 
-            console.log(selectedFilters);
-        }
+		term = e.target.getAttribute('data-term'); 
+		taxonomy = e.target.getAttribute('data-tax');
+		featuredBlock = $('.results-container .featured');
+		resultsBlock = $('#tax-query-results');
+		container = $('#tax-query-results .results-inner');
+		heading = $('#tax-query-results .results-header');
+		isChecked =  $('.taxonomy button').hasClass('active');
+		checkedTotal = $(document).find('.taxonomy button.active').length;
 
-        //remove current html guts and fix heading
-        // TODO: set back to featured if nothing clicked
-        // TODO: add multiple terms to header if there are more than one
-        $(container).html('');
-        $(heading).text('Resources By Term: ' + term + ''); 
+		if(button.hasClass('active'))
+		{
+			selectedFilters[taxonomy].push(term); 
+		}
+		else
+		{
+			let index = selectedFilters[taxonomy].indexOf(term);
+			selectedFilters[taxonomy].splice(index, 1);
+		}
 
-        let data = {
-            'action' : 'get_resources', 
-            'filters' : selectedFilters
-        };
+		let dataObj = {
+			'action' : 'get_resources', 
+			'filters' : selectedFilters
+		};
 
-        $.ajax({
-            url : loadmore_params.ajaxurl, // AJAX handler
-            data : data,
-            dataType: 'html',
-            type : 'POST',
-            error : function(error){
-                console.log(error);
-            }, 
-            success : function( data ){
-                if( data ) {
-                    $(container).html(data);
+		$.ajax({
+			url: loadmore_params.ajaxurl, // AJAX handler
+			data: dataObj,
+			dataType: 'json',
+			type: 'POST',
+			error: function(error)
+			{
+				console.log(error);
+			}, 
+			success: function(data)
+			{
+				updateResults(button, data);
+			}
+		});
+	});
+}
 
-                } else {
-                    console.log('yoohoo');
-                }
-            }
+
+// FADE IN SCROLL HANDLER - request animation frame
+
+let lastPosition = -1; // storing last scroll position which updates on throttled scroll listener - nothing takes place before it is changed
+let slideUps = $('[data-scroll-effect]');
+let slideUpArray = [];
+
+function getFadeInModules()
+{
+    slideUpArray = []; // reset array
+
+    // Setup array of elements and starting Y positions
+    slideUps.each(function(i)
+    {
+        let ele = $(slideUps)[i];
+        let height = $(ele).height();
+
+        slideUpArray.push({ // no longer looking for value every time on scroll
+            ele: ele,
+            startY: $(ele).offset().top,
+            height: height,
+            type: $(ele).attr('data-scroll-effect')
         });
     });
+
+    console.log(slideUpArray);
 }
+
+function letsTry(timestamp)
+{
+    getFadeInModules();
+
+    function isElementInViewport(ele)
+    {
+        let offset = mobileDetected ? .35 : .35;
+        let topViewport = window.pageYOffset;
+        let bottomViewport = topViewport + windowHeight;
+        let positionData = {inViewport: false, vertPosPercent: 0};
+        let vertPosPercent = (bottomViewport - ele.startY) / (windowHeight * offset);
+
+        if(vertPosPercent < 0) vertPosPercent = 0;
+        if(vertPosPercent > 1) vertPosPercent = 1;
+
+        positionData.vertPosPercent = vertPosPercent;
+
+        if(vertPosPercent >= 0 || vertPosPercent <= 1) positionData.inViewport = true;
+
+        return positionData;
+    }
+
+    function loop()
+    {
+        // Avoid calculations if not needed
+        if (lastPosition == window.pageYOffset) // check position
+        {
+            scroll(loop);
+            return false; // stops loop after firing once
+        }
+
+        lastPosition = window.pageYOffset; //update position
+
+        // Loop through the elements so we can choose to animate or not
+        for(let i = 0; i < slideUpArray.length; i++)
+        {
+            let ele = slideUpArray[i];
+            let positionData = isElementInViewport(ele);
+            let vertPosPercent = positionData.vertPosPercent;
+
+            if(positionData.inViewport)
+            {
+                console.log(ele.type);
+
+                let easedPercent = EasingFunctions.easeInOutQuad(vertPosPercent);
+
+                // All modules only fade in on mobile
+                if(mobileDetected)
+                {
+                    $(ele.ele).css({
+                        opacity: vertPosPercent
+                    });
+
+                    continue;
+                }
+
+                if(!ele.type)
+                {
+                    console.log('fade in');
+
+                    $(ele.ele).css({
+                        opacity: vertPosPercent
+                    });
+                }
+
+                if(ele.type == 'moduleSlideUp')
+                {
+                    $(ele.ele).css({
+                        transform: 'scale('+ (.85 + (0.15 * vertPosPercent)) +')',
+                        opacity: vertPosPercent
+                    });
+                }
+
+                if(ele.type == 'moduleFadeIn')
+                {
+                    $(ele.ele).css({
+                        opacity: vertPosPercent
+                    });
+                }
+
+                if(ele.type == 'moduleSlideFromLeft')
+                {
+                    let easedPercent = EasingFunctions.easeInQuad(vertPosPercent);
+                    $(ele.ele).css({
+                        opacity: vertPosPercent,
+                        transform: 'translate3d('+ (-100 + (easedPercent * 100)) +'%,0,0)'
+                    })
+                }
+
+                if(ele.type == 'moduleSlideFromRight')
+                {
+                    let easedPercent = EasingFunctions.easeInQuad(vertPosPercent);
+                    $(ele.ele).css({
+                        opacity: vertPosPercent,
+                        transform: 'translate3d('+ (100 - (easedPercent * 100)) +'%,0,0)'
+                    })
+                }
+
+                if(ele.type == 'moduleSlideFromTop')
+                {
+                    $(ele.ele).css({
+                        opacity: vertPosPercent,
+                        transform: 'translate3d(0,'+ (-100 + (easedPercent * 100)) +'%, 0)'
+                    })
+                }
+
+                if(ele.type == 'moduleSlideFromBottom')
+                {
+                    $(ele.ele).css({
+                        opacity: vertPosPercent,
+                        transform: 'translate3d(0,' + (100 - (easedPercent * 100)) + '%, 0)'
+                    })
+                }
+            }
+        }
+
+        scroll( loop );
+    }
+
+    // Call the loop for the first time
+    loop();
+};
+requestAnimationFrame(letsTry);

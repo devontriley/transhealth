@@ -37,13 +37,24 @@
         position: relative;
         overflow: hidden;
         padding: 0;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
         img {
+            position: absolute;
+            left: 0;
+            top: 0;
             width: 100%;
-            @include media-breakpoint-up(lg) {
-                position: absolute;
-                height: 100%;
-                object-fit: cover;
+            height: 100%;
+            object-fit: cover;
+
+            &[src*=".svg"] {
+                width: 60%;
+                height: auto;
+                position: static;
+                margin: 0 auto;
             }
         }
     }
@@ -55,7 +66,12 @@
             padding: 4rem 8rem 4rem 3rem;
         }
         @media(min-width: 1440px) {
-            padding: 5rem 9rem 5rem 3rem;
+            padding: 5rem;
+        }
+
+        .tags {
+            color: $lightBlue;
+            font-size: 1.4rem;
         }
 
         .card-title {
@@ -65,7 +81,9 @@
 
     &:hover {
         .btn {
-            background-color: pink;
+            &:before {
+                transform: translateX(0);
+            }
         }
     }
 }

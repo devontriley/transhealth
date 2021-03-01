@@ -1,6 +1,6 @@
 <?php //print_r($graphic); ?>
 
-<div class="card service">
+<div class="card service" data-scroll-effect="">
     <div class="card-body d-flex">
         <div class="row d-flex">
             <div class="col-lg-5 align-self-center img-container">

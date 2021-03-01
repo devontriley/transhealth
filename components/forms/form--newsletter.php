@@ -2,7 +2,7 @@
     <div id="mc_embed_signup">
         <div id="form-fields-wrapper">
             <!-- TODO: Make sure action is right!! --> 
-            <form action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate night contact" target="_blank" novalidate>
+            <form action="https://transhealth.us10.list-manage.com/subscribe/post?u=4dadd4bf5d57121d0fa219ea9&amp;id=c9a7c97a57" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate night contact" target="_blank" novalidate>
                 <div class="mc-field-group form-group">
                     <p id="EMAIL-label" style="font-size: 0">Email:</p>
                     <input type="email" value="" name="EMAIL" class="required email form-control" placeholder="Email" id="mce-EMAIL">
@@ -14,7 +14,7 @@
                 </div>
                 <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
                 <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                    <input type="text" name="b_79a29db33145cb1815cb72aef_1771890895" tabindex="-1" value="">
+                    <input type="text" name="b_4dadd4bf5d57121d0fa219ea9_c9a7c97a57" tabindex="-1" value="">
                 </div>
                 <div class="clear">
                     <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="button btn">

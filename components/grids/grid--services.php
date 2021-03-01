@@ -2,7 +2,7 @@
 $services = get_sub_field('service');
 ?>
 
-<div class="module-wrapper">
+<div class="module-wrapper" data-scroll-effect="">
     <div class="grid services">
         <?php foreach($services as $s) : 
             $graphic = $s['image'];

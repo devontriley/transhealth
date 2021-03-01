@@ -1,0 +1,57 @@
+.tribe-common {
+    margin-bottom: 10rem;
+    @media(min-width: 1440px) {
+        margin-bottom: 15rem;
+    }
+}
+
+.tribe-common--breakpoint-medium.tribe-events .tribe-events-l-container {
+    box-shadow: 0px 3px 16px #8EB1C743;
+    border-radius: 1rem;
+}
+
+.tribe-common--breakpoint-medium.tribe-events .tribe-events-c-events-bar--border {
+    border: .2rem solid $lightBlue;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.tribe-events .tribe-events-c-top-bar__nav-list-item {
+}
+
+.tribe-common .tribe-common-c-btn-icon--caret-left .tribe-common-c-btn-icon__icon-svg path, 
+.tribe-common .tribe-common-c-btn-icon--caret-right .tribe-common-c-btn-icon__icon-svg path {
+    fill: $lightBlue;
+}
+
+.tribe-common--breakpoint-medium.tribe-common .tribe-common-c-btn-border-small, 
+.tribe-common--breakpoint-medium.tribe-common a.tribe-common-c-btn-border-small {
+    border: .2rem solid $darkBlue;
+    color: $darkBlue;
+    font-weight: 600;
+    padding: 1rem 3rem;
+}
+
+.tribe-events .tribe-events-c-messages__message {
+    background: $lightestBlue;
+}
+
+.tribe-common .tribe-common-b1,
+.tribe-common .tribe-common-b2,
+.tribe-common .tribe-common-b3,
+.tribe-common .tribe-common-h3,
+.tribe-common .tribe-common-h4,
+.tribe-common .tribe-common-h5, 
+.tribe-common .tribe-common-h6,
+.tribe-events .datepicker .datepicker-switch,
+.tribe-events .datepicker .day, 
+.tribe-events .datepicker .dow,
+.tribe-filter-bar .tribe-filter-bar-c-range__label,
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-results__option,
+.tribe-common .tribe-common-form-control-checkbox__label, 
+.tribe-common .tribe-common-form-control-radio__label,
+.tribe-common .tribe-common-c-btn, 
+.tribe-common a.tribe-common-c-btn,
+.tribe-events .tribe-events-c-view-selector__list-item-text {
+    font-family: 'SofiaPro';
+}

@@ -3,28 +3,64 @@
         margin-top: 11rem;
         margin-bottom: 11rem;
     }
-
-    .inner {
-
     
-    }
-
     .filters-container {
         background: #fff;
         box-shadow: 0px 3px 16px #8EB1C729;
         width: 100%;
-        padding: 3rem;
+        padding: 3rem 2rem;
 
-        .header {
-            font-size: 2rem;
-            font-weight: 600;
-            color: $lightBlue;
-            margin-top: 0;
+        .header-container {
+
+            .header {
+                font-size: 1.6rem;
+                font-weight: 600;
+                color: $darkBlue;
+                margin-top: 0;
+                display: inline;
+                vertical-align: middle;
+                @media(min-width: 1440px) {
+                    font-size: 2rem;
+                }
+                @media(min-width: 1920px) {
+                    font-size: 2.4rem;
+                }
+            }
+
+            svg {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 1rem;
+                width: 3.7rem;
+                height: auto;
+            }
         }
 
         .taxonomy {
-            .name {
 
+            .name {
+                font-weight: 600;
+                @media(min-width: 1440px) {
+                    font-size: 1.8rem;
+                }
+                @media(min-width: 1920px) {
+                    font-size: 2rem;
+                }
+            }
+
+            button {
+                font-size: 1.4rem;
+                padding: 1rem;
+                border: 1px solid $darkBlue;
+                border-radius: 10px;
+                background: none;
+                color: $darkBlue;
+                margin-bottom: .5rem;
+
+                &.active {
+                    background: $darkBlue;
+                    color: #fff;
+                }
             }
 
             .option {
@@ -50,9 +86,23 @@
         }
     }
 
+    #tax-query-results {
+        .results-header {
+            span[id*=term]:first-of-type {
+                .comma {
+                    display: none;
+                }
+            }
+        }
+    }
+
     .results-container {
         
         .intro-copy {
+            margin-bottom: 3rem;
+            @include media-breakpoint-up(lg) {
+                margin-bottom: 5rem;
+            }
 
             p:first-child {
                 margin-top: 0;

@@ -4,7 +4,7 @@ $copy = get_sub_field('copy');
 $items = get_sub_field('grid_items');
 ?>
 
-<div class="module-wrapper">
+<div class="module-wrapper" data-scroll-effect="">
     <div class="rte standard logo-grid module-padded">
         
         <div class="inset">

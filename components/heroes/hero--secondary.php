@@ -3,7 +3,7 @@ if(!$image) $image = get_sub_field('image');
 if(!$header) $header = get_sub_field('header');
 ?>
 
-<div class="jumbotron hero secondary module-flush">
+<div class="jumbotron hero secondary module-flush" data-scroll-effect="">
     <div class="row" inner>
     <div class="text-container col-md-6">
             <div class="inner">

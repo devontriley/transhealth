@@ -23,7 +23,10 @@ scripts = () => {
 
 styles = () => 
 {
-    return gulp.src(themePath + 'build/scss/*.scss')
+    return gulp.src([
+        themePath + 'build/node_modules/hamburgers/_sass/hamburgers/hamburgers.scss',
+        themePath + 'build/scss/*.scss'
+        ])
         .pipe(sass().on('error', sass.logError))
         .pipe(concat('style.css'))
         .pipe(gulp.dest(themePath))

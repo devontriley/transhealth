@@ -4,13 +4,15 @@
     background-color: $lightBlue;
     color: #fff;
 
+    .footer-logo{ 
+        width: 22rem;
+        fill: #fff;
+        margin-bottom: 4rem;
+    }
+
     .newsletter {
-        padding: 3rem 2rem;
-        background: $lightBlue;
-        background-image: url('assets/img/footer-newsletter.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-blend-mode: soft-light;
+        padding: 5rem 2rem;
+        background: #A4C5D9;
         @include media-breakpoint-up(lg) {
             padding: 5rem 0;
         }
@@ -41,7 +43,23 @@
                 padding: 0 2rem;
                 height: 7rem;
                 font-size: 1.6rem;
-                border-radius: .5rem 0 0 .5rem;
+                border-radius: .5rem;
+                outline: 0;
+                box-shadow: none;
+            }
+
+            input.mce_inline_error {
+                border: .2rem solid $red;
+            }
+
+            div.mce_inline_error {
+                position: absolute;
+                left: 0;
+                top: calc(100% + 1rem);
+                background: none;
+                padding: 0;
+                color: $darkBlue;
+                font-size: 1.4rem;
             }
 
             #mc-embedded-subscribe {
@@ -51,6 +69,16 @@
                 height: 100%;
                 min-width: 0;
                 border-radius: 0 .5rem .5rem 0;
+                outline: none;
+                box-shadow: none;
+            }
+
+            #mce-responses {
+                .response {
+                    margin: 1rem 0;
+                    font-size: 1.4rem;
+                    color: $darkBlue;
+                }
             }
         }
     }
@@ -84,40 +112,6 @@
                 @include media-breakpoint-up(lg) {
                     text-align: left;
                     border-right: 1px solid $darkBlue;
-                }
-            }
-
-            .logo {
-                width: 22.7rem;
-                margin-bottom: 4rem;
-                @include media-breakpoint-up(lg) {
-                    display: block;
-                    position: relative;
-                    left: auto;
-                    bottom: auto;
-                    transform: translateX(0);
-                }
-    
-                &.mobile {
-                    display: block;
-                    width: 9.5rem;
-                    position: absolute;
-                    top: -5rem;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    @include media-breakpoint-up(lg) {
-                        display: none;
-                    }
-                }
-    
-                &.desktop {
-                    display: none;
-                    @include media-breakpoint-up(lg) {
-                        display: block;
-                        bottom: auto;
-                        width: 4rem;
-                        max-width: 100%;
-                    }
                 }
             }
 
@@ -162,6 +156,10 @@
                         height: 1px;
                         background: $darkBlue;
                     }
+                }
+
+                p {
+                    font-size: 1.6rem;
                 }
             }
         }

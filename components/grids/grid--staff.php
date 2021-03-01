@@ -11,7 +11,7 @@ if(!$staffQuery) {
 if(!$resultCount) $resultCount = $staffQuery->found_posts;
 ?>
 
-<div class="module-wrapper">
+<div class="module-wrapper" data-scroll-effect="">
     <div class="grid staff module-padded <?php if($gradientAccent){ echo 'sunburst'; } ?>">
         <?php if($header): ?>
             <h2><?php echo $header; ?></h2>

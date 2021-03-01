@@ -68,7 +68,7 @@
         img  {
             width: 15rem;
             @include media-breakpoint-up(lg) {
-                width: 20rem;
+                width: 22rem;
             }
         }
     }
@@ -84,6 +84,7 @@
         @include media-breakpoint-up(xl) {
             right: -5vw;
             position: relative;
+            z-index: 10;
         }
 
         ul.menu {
@@ -100,15 +101,20 @@
                 white-space: nowrap;
                 position: relative;
 
+                &:before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    height: 0;
+                    background: $red;
+                    transition: height 300ms ease;
+                }
+
                 &:hover {
                     &:before {
-                        content: '';
-                        position: absolute;
-                        left: 0;
-                        bottom: 0;
-                        width: 100%;
-                        height: .2rem;
-                        background: $red;
+                        height: .4rem;
                     }
 
                     ul.sub-menu {
@@ -174,7 +180,7 @@
 
     .mobile-controls {
         width: 4rem;
-        height: 4rem;
+        height: 2.4rem;
         position: relative;
         z-index: 11;
         @include media-breakpoint-up(lg) {
@@ -184,63 +190,36 @@
             margin-top: -.7rem;
         }
 
-        &:after {
-            content: "";
-            width: 60px;
-            height: 60px;
-            display: none;
-            border-radius: 60pc;
-            border: 2px solid #C48B5C;
-            position: absolute;
-            top: -15px;
-            left: -10px;
-            transition: all ease 300ms;
-            pointer-events: none;
-        }
-
         button {
             outline: none;
             border: none;
             background: transparent;
             font-size: 0;
+            padding: 0;
+            display: block;
 
-            svg {
-                display: none;
-                position: absolute;
-                top: 0;
-                left: 50%;
-                width: 100%;
-                transform: translateX(-50%);
-                transition: all ease 300ms;
-
-                &.active {
-                    display: block;
-                }
-
-                &.open {
-                    #animate-line {
-                        transition: all ease 300ms;
-                    }
-
-                    &:hover {
-                        #animate-line {
-                            transform: translate(10px, 22px);
-                        }
-                    }
-                }
-
-                &.close {
-                    width: 2.7rem;
-                    height: 2.7rem;
-                    @include media-breakpoint-up(lg){
-                    }
-                }
+            .hamburger-box {
+                display: block;
             }
         }
     }
 }
 
 //NAV PANE STYLING
+body.nav-active {
+    overflow: hidden;
+    height: 100vh;
+
+    #flyout-menu {
+        transform: translateX(0);
+        display: flex;
+    
+        &[data-animate="slide-in"] {
+            transform: translateX(0);
+        }
+    }
+}
+
 #flyout-menu {
     width: 100vw;
     height: calc(100vh - 11.5rem);
@@ -260,15 +239,6 @@
         display: none;
     }
 
-    &.active {
-        transform: translateX(0);
-        display: flex;
-
-        &[data-animate="slide-in"] {
-            transform: translateX(0);
-        }
-    }
-
     .menu-main-menu-container {
         text-align: left;
         flex: 0 0 100%;
@@ -286,8 +256,12 @@
                 border-bottom: .1rem solid #ddd;
                 position: relative;
 
+                &:last-of-type {
+                    border: none;
+                }
+
                 a.item-link {
-                    color: $darkBlue;
+                    color: $blue;
                     display: block;
                     padding: 1.5rem 0;
                     transition: color ease 200ms;
@@ -306,6 +280,33 @@
                     fill: $red;
                 }
             }
+        }
+
+        .sm-links {
+
+            p {
+                color: $blue;
+            }
+
+            ul {
+                margin: 0;
+                padding: 0;
+
+                li {
+                    display: inline-block;
+                    list-style: none;
+                    margin-right: 2rem;
+
+                    svg {
+                        fill: $blue;
+                    }
+                }
+            }
+        }
+
+        p.copyright {
+            font-size: 1.4rem;
+            color: $blue;
         }
     }
 

@@ -15,7 +15,7 @@ if(!$mainHeader && $type == 'standard' && !$inBox) {
 }
 ?>
 
-<div class="module-wrapper">
+<div class="module-wrapper" data-scroll-effect="">
     <div class="rte standard <?php if($minimal) echo 'minimal '?> module-padded <?php if($inBox) echo ' inset' ?>">
 
         <?php if($mainHeader): ?>
@@ -61,6 +61,7 @@ if(!$mainHeader && $type == 'standard' && !$inBox) {
 
 <?php
 unset($mainHeader);
+unset($copy);
 unset($type);
 unset($cols);
 unset($inBox);

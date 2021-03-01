@@ -5,7 +5,7 @@
     $counter = 0;
 ?>
 
-<div class="module-wrapper">
+<div class="module-wrapper" data-scroll-effect="">
     <div class="module-padded slider-module">
 
         <div class="inset">
@@ -16,7 +16,7 @@
 
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
-                <div id="insetCarousel" class="carousel slide" data-touch="true">
+                <div id="insetCarousel" class="carousel slide carousel-fade" data-touch="true">
                     <div class="carousel-inner">
 
                         <?php if( have_rows('slides') ): ?>

@@ -3,7 +3,7 @@
     $urlTitle = urlencode($title); 
 ?>
 
-<div class="module-flush share-module">
+<div class="module-flush share-module" data-scroll-effect="">
     <div class="inner">
         <p class="title">Share to Social</p>
 

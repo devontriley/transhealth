@@ -27,7 +27,7 @@ if($isClinician)
 
 ?>
 
-<main id="content" class="staff-single">
+<main id="content" class="staff-single" data-scroll-effect="">
     <div class="module-wrapper module-padded">
         <div class="row">
 

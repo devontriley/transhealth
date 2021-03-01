@@ -6,7 +6,7 @@ $title = get_field('title');
 $link = get_the_permalink($id);
 ?>
 
-<div class="card staff">
+<div class="card staff" data-scroll-effect="">
     <a class="card-cover-link" href="<?php echo $link ?>">
         <span style="font-size: 0">
                 View staff: <?php echo $name ?>

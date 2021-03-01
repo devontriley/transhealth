@@ -22,8 +22,10 @@
             <!-- End Google Tag Manager -->
         <?php endif; ?>
 
-        <!-- TODO: Insert Favicons Here -->
-        <link rel="icon" href="<?php echo get_template_directory_uri()?>/assets/favicons/favicon.png" sizes="any" type="image/svg+xml">
+        <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_bloginfo('url') ?>/favicon_io/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_bloginfo('url') ?>/favicon_io/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_bloginfo('url') ?>/favicon_io/favicon-16x16.png">
+        <link rel="manifest" href="<?php echo get_bloginfo('url') ?>/favicon_io/site.webmanifest">
 
         <!-- TODO: Add Bugherd Script to Options Page in Back End Sidebar -->
         <?php 
@@ -48,12 +50,7 @@
         <?php include('main-svg.svg'); ?>
 
         <div id="wrapper">
-            <!-- Starter pane for Barba transitions -->
-            <!-- <div class="animation-pane vertical" id="animation-pane-vertical">
-                <img id="animation-pane-asset" alt="" src='<?php echo home_url(); ?>/wp-content/themes/bones/assets/img/logo.png'/>
-            </div> -->
 
-            <!-- TODO: Configure Nav Pane -->
             <?php include('components/nav/flyout-menu.php'); ?>
 
             <?php include('components/banner.php'); ?>
@@ -62,7 +59,7 @@
                 
                 <div class="header-logo">
                     <a class="header-link" href="<?php echo home_url(); ?>" aria-label="Return to Home Page">
-                        <img class='logo' alt="Transhealth Logo" src='<?php echo home_url(); ?>/wp-content/themes/transhealth/assets/logo.svg'>
+                        <img src="<?php echo get_bloginfo('template_directory'); ?>/assets/logo_color.svg" alt="Transhealth Northampton" />
                     </a>
                 </div>
 
@@ -75,9 +72,12 @@
                 </div>  
 
                 <div class="mobile-controls" data-hover="scale">
-                    <button class="hamburger-control" name="menu-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="flyout-menu">
-                        Toggle Mobile Nav Controls
-
+                    <button class="hamburger hamburger--collapse" type="button">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                    <!-- <button class="hamburger-control" name="menu-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="flyout-menu">
                         <svg aria-hidden="true" class="open active" viewBox="0 0 38 38">
                             <defs>
                                 <style>
@@ -92,7 +92,7 @@
                         <svg aria-hidden="true" class="close" viewbox="0 0 29.604 29.604" width="18" height="18">
                             <use href="#mobile-close"></use>
                         </svg>
-                    </button>
+                    </button> -->
                 </div>
                 
             </header>

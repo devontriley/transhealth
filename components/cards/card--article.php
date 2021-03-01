@@ -6,7 +6,7 @@
     $id = $post->ID;
 ?>
 
-<div class="card article">
+<div class="card article" data-scroll-effect="">
     <a class="card-link" href="<?php echo $link; ?>" title="<?php echo $title; ?>" aria-label="Read Full Article: <?php echo $title; ?>"></a>
     <div class="card-body">
 

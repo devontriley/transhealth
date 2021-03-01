@@ -3,7 +3,7 @@ if(!$header) $header = get_sub_field('header');
 if(!$faqs) $faqs = get_sub_field('section');
 ?>
 
-<div class="module-wrapper faq">
+<div class="module-wrapper faq" data-scroll-effect="">
     <div class="module-padded faq" id="accordion">
         <div class="row">
 

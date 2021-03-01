@@ -4,12 +4,15 @@
     if(!$header) $header = get_sub_field('header');
     if(!$copy) $copy = get_sub_field('copy');
     if(!$button) $button = get_sub_field('button');
-    if(!$text) $text = $button['title'];
-    if(!$link) $link = $button['url'];
+    if($button)
+    {
+        if(!$text) $text = $button['title'];
+        if(!$link) $link = $button['url'];
+    }
     if(!$inBox) $inBox = get_sub_field('in_box');
 ?>
 
-<div class="module-wrapper">
+<div class="module-wrapper" data-scroll-effect="">
     <div class="rte fiftyfifty <?php echo ($inBox) ? 'in-box module-padded' : 'module-flush';?>">
         <?php if($mainHeader): ?>
             <h2 class="main-header outline"><?php echo $mainHeader; ?></h2>

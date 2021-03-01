@@ -3,12 +3,14 @@ if(!isset($icon)){ $icon = get_sub_field('image'); }
 if(!isset($text)){ $text = get_sub_field('text'); }
 ?>
 
-<div class="card icon-text">
+<div class="card icon-text" data-scroll-effect="">
     <div class="card-body">
 
         <?php if($icon): ?>
             <div class="img-wrapper">
-                <?php echo imageTag($icon); ?>
+                <div class="image">
+                    <?php echo imageTag($icon); ?>
+                </div>
             </div>
         <?php endif; ?>
 
