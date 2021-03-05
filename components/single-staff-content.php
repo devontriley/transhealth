@@ -65,50 +65,80 @@ if($isClinician)
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="background" role="tabpanel" aria-labelledby="background-tab">
                             <?php if($isClinician): ?>
-                                <h4>Speciality of Practice</h4>
-                                <p><?php echo $specialty ?></p>
+                                <?php if($specialty): ?>
+                                    <h4>Speciality of Practice</h4>
+                                    <p><?php echo $specialty ?></p>
+                                <?php endif; ?>
 
-                                <h4>Joined Transhealth</h4>
-                                <p><?php echo $joinedDate ?></p>
+                                <?php if($joinedDate): ?>
+                                    <h4>Joined Transhealth</h4>
+                                    <p><?php echo $joinedDate ?></p>
+                                <?php endif; ?>
 
-                                <h4>Internship</h4>
-                                <p><?php echo $internship ?></p>
+                                <?php if($internship): ?>
+                                    <h4>Internship</h4>
+                                    <p><?php echo $internship ?></p>
+                                <?php endif; ?>
 
-                                <h4>Board Certification</h4>
-                                <p><?php echo $certifications ?></p>
+                                <?php if($certifications): ?>
+                                    <h4>Board Certification</h4>
+                                    <p><?php echo $certifications ?></p>
+                                <?php endif; ?>
 
-                                <h4>Languages</h4>
-                                <p><?php echo $languages ?></p>
+                                <?php if($languages): ?>
+                                    <h4>Languages</h4>
+                                    <p><?php echo $languages ?></p>
+                                <?php endif; ?>
+                                
+                                <?php if($education): ?>
+                                    <h4>Education</h4>
+                                    <p><?php echo $education ?></p>
+                                <?php endif; ?>
+                                
 
-                                <h4>Education</h4>
-                                <p><?php echo $education ?></p>
-
-                                <h4>Residency</h4>
-                                <p><?php echo $residency ?></p>
+                                <?php if($residency): ?>
+                                    <h4>Residency</h4>
+                                    <p><?php echo $residency ?></p>
+                                <?php endif; ?>
                             <?php else: ?>  
-                                <h4>Joined Transhealth</h4>
-                                <p><?php echo $joinedDate ?></p>
+                                
+                                <?php if($joinedDate): ?>
+                                    <h4>Joined Transhealth</h4>
+                                    <p><?php echo $joinedDate ?></p>
+                                <?php endif; ?>
 
-                                <h4>Education</h4>
-                                <p><?php echo $education ?></p>
+                                <?php if($education): ?>
+                                    <h4>Education</h4>
+                                    <p><?php echo $education ?></p>
+                                <?php endif; ?>
 
-                                <h4>Languages</h4>
-                                <p><?php echo $languages ?></p>
+                                <?php if($languages): ?>
+                                    <h4>Languages</h4>
+                                    <p><?php echo $languages ?></p>
+                                <?php endif; ?>
 
-                                <h4>Certification</h4>
-                                <p><?php echo $certifications ?></p>
+                                <?php if($certifications): ?>
+                                    <h4>Certification</h4>
+                                    <p><?php echo $certifications ?></p>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </div>
 
                         <div class="tab-pane fade" id="interests" role="tabpanel" aria-labelledby="interests-tab">
-                                <h4>Hobbies</h4>
-                                <p><?php echo $hobbies ?></p>
+                                <?php if($hobbies): ?>
+                                    <h4>Hobbies</h4>
+                                    <p><?php echo $hobbies ?></p>
+                                <?php endif; ?>
 
-                                <h4>Pets</h4>
-                                <p><?php echo $pets ?></p>
+                                <?php if($pets): ?>
+                                    <h4>Pets</h4>
+                                    <p><?php echo $pets ?></p>
+                                <?php endif; ?>
 
-                                <h4>Favorite Artist/Band</h4>
-                                <p><?php echo $band ?></p>
+                                <?php if($band): ?>
+                                    <h4>Favorite Artist/Band</h4>
+                                    <p><?php echo $band ?></p>
+                                <?php endif; ?>
                         </div>
                     </div>
 
