@@ -12,6 +12,8 @@ $bio = get_field('bio');
 $joinedDate = get_field('joined_transhealth');
 $education = get_field('education');
 $languages = get_field('languages');
+$certifications = get_field('certifications');
+$anythingElse = get_field('anything_else');
 $isClinician = is_singular('clinicians');
 
 //IF POST TYPE IS CLINICIAN 
@@ -138,6 +140,11 @@ if($isClinician)
                                 <?php if($band): ?>
                                     <h4>Favorite Artist/Band</h4>
                                     <p><?php echo $band ?></p>
+                                <?php endif; ?>
+
+                                <?php if($anythingElse): ?>
+                                    <h4>Anything else?</h4>
+                                    <p><?php echo $anythingElse ?></p>
                                 <?php endif; ?>
                         </div>
                     </div>
