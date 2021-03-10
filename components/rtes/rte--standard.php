@@ -6,8 +6,10 @@ if(!$inBox) $inBox = get_sub_field('in_box');
 if(!$header) $header = get_sub_field('header');
 if(!$copy) $copy = get_sub_field('copy');
 if(!$button) $button = get_sub_field('button');
-if(!$text && $button) $text = $button['title'];
-if(!$link && $button) $link = $button['url'];
+if($button) {
+    if(!$text && $button) $text = $button['title'];
+    if(!$link && $button) $link = $button['url'];
+}
 
 //set up class for super plain, minimal RTE
 if(!$mainHeader && $type == 'standard' && !$inBox) {
@@ -35,15 +37,17 @@ if(!$mainHeader && $type == 'standard' && !$inBox) {
                                 <?php echo apply_filters('the_content', $copy) ?></div>
                         <?php endif; ?>
 
-                        <?php if($type == 'logo-grid' || $type == 'text-icon-grid'): ?>
+                        <?php if($type == 'logo-grid' || $type == 'text-icon-grid'): 
+                            $gridItems = get_sub_field('grid_items'); ?>
                             <?php if(have_rows('grid_items')): ?>
                                 <div class="grid-wrapper row">
-                                    <?php while(have_rows('grid_items')): ?>
-                                        <?php the_row(); ?>
+                                    <?php foreach($gridItems as $item) : 
+                                        $icon = $item['image'];
+                                        $text = $item['text']; ?>
                                         <div class="card-container col-md-<?php echo $cols ?>">
                                             <?php include (realpath(dirname(__FILE__)."/../cards/card--icon-text.php")); ?>
                                         </div>
-                                    <?php endwhile; ?>
+                                    <?php endforeach; ?>
                                 </div>
                             <?php endif ?>
                         <?php endif; ?>

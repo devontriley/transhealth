@@ -7,14 +7,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: transparent;
+    background: #fff;
     z-index: 22;
+    position: relative;
     @include media-breakpoint-up(lg) {
         height: 10rem;
     }
     @include media-breakpoint-up(xl) {
         top: 0;
-        left: 5%;
+        left: 0;
         padding: 0 5vw;
     }
 
@@ -218,6 +219,10 @@ body.nav-active {
             transform: translateX(0);
         }
     }
+}
+
+body.no-promo #flyout-menu {
+    top: 7rem;
 }
 
 #flyout-menu {

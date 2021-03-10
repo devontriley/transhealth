@@ -4,7 +4,7 @@
     background-color: $lightBlue;
     color: #fff;
 
-    .footer-logo{ 
+    .footer-logo {
         width: 22rem;
         fill: #fff;
         margin-bottom: 4rem;
@@ -136,6 +136,10 @@
                         list-style: none;
                         margin: 0 3rem 0 0;
                         padding: 0;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
                     }
                 }
             }

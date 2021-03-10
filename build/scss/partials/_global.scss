@@ -17,6 +17,38 @@ body {
         height: 100%;
         overflow-y: hidden;
     }
+
+    &.fixed {
+
+        &.no-promo {
+            padding-top: 7rem;
+            @include media-breakpoint-up(lg) {
+                padding-top: 10rem;
+            }
+        }
+
+        #promo-banner {
+            margin-bottom: 7rem;
+            @include media-breakpoint-up(lg) {
+                margin-bottom: 10rem;
+            }
+        }
+
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transform: translateY(-100%);
+        }
+    }
+
+    &.header-active {
+        #header {
+            transform: translateY(0);
+            transition: transform ease 500ms;
+        }
+    }
 }   
 
 *[data-scroll-effect=""] {
@@ -111,6 +143,10 @@ li.copy,
     }
     @media(min-width: 1920px) {
         font-size: 2.4rem;
+    }
+
+    a {
+        color: inherit;
     }
 }
 

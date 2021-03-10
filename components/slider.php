@@ -74,3 +74,10 @@
         </div>
     </div>
 </div>
+
+<?php
+unset($header);
+unset($slideCount);
+unset($testimonials);
+unset($counter);
+?>

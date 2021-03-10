@@ -75,19 +75,7 @@ else if (navigator.userAgent.search("Opera") >= 0) {
 }
 
 // Detect request animation frame
-let scroll = window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    // IE Fallback, you can even fallback to onscroll
-    function(callback){ window.setTimeout(callback, 1000/60) };
-
-//
-//
-// FUNCTIONS IN THE HEADER AND FOOTER THAT DON'T REQUIRE RE-INIT WITH BARBA
-//
-//
+let scroll = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame || /* IE Fallback, you can even fallback to onscroll*/ function(callback){ window.setTimeout(callback, 1000/60) };
 
 //Navigational control.
 navToggle = () => {
@@ -97,6 +85,57 @@ navToggle = () => {
 $('.mobile-controls').on('click', function(){
     navToggle();
 });
+
+
+// Sticky Header
+let header = $('header#header');
+let headerHeight = header.height();
+let promoBar = $('#promo-banner');
+let promoHeight = promoBar.height() || 0;
+let lastScrollY = window.scrollY;
+let headerFixed = false;
+let headerActive = false;
+
+function stickyHeader()
+{
+    if(!promoBar.length) $('body').addClass('no-promo');
+    
+    function loop()
+    {
+        let delta = window.scrollY - lastScrollY; // 1(down), -1(up)
+
+        if(window.scrollY > (headerHeight + promoHeight) && !headerFixed)
+        {
+            $('body').addClass('fixed');
+            headerFixed = true;
+        }
+
+        if(window.scrollY <= (promoHeight) && headerFixed)
+        {
+            $('body').removeClass('fixed');
+            headerFixed = false;
+        }
+
+        if(window.scrollY > (2 * (headerHeight + promoHeight)) && delta < 0 && !headerActive)
+        {
+            $('body').addClass('header-active');
+            headerActive = true;
+        }
+
+        if(delta > 0 && headerActive)
+        {
+            $('body').removeClass('header-active');
+            headerActive = false;
+        }
+
+        lastScrollY = window.scrollY;
+
+        scroll(loop);
+    }
+
+    loop();
+}
+scroll(stickyHeader)
 
 
 // RESOURCES QUERY SYSTEM 
@@ -211,8 +250,7 @@ if(document.getElementById('resource-module'))
 }
 
 
-// FADE IN SCROLL HANDLER - request animation frame
-
+// FADE IN SCROLL HANDLER
 let lastPosition = -1; // storing last scroll position which updates on throttled scroll listener - nothing takes place before it is changed
 let slideUps = $('[data-scroll-effect]');
 let slideUpArray = [];
@@ -280,8 +318,6 @@ function letsTry(timestamp)
 
             if(positionData.inViewport)
             {
-                console.log(ele.type);
-
                 let easedPercent = EasingFunctions.easeInOutQuad(vertPosPercent);
 
                 // All modules only fade in on mobile
@@ -296,8 +332,6 @@ function letsTry(timestamp)
 
                 if(!ele.type)
                 {
-                    console.log('fade in');
-
                     $(ele.ele).css({
                         opacity: vertPosPercent
                     });
@@ -360,4 +394,4 @@ function letsTry(timestamp)
     // Call the loop for the first time
     loop();
 };
-requestAnimationFrame(letsTry);
+scroll(letsTry);

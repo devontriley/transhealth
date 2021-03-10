@@ -77,27 +77,8 @@
                             <span class="hamburger-inner"></span>
                         </span>
                     </button>
-                    <!-- <button class="hamburger-control" name="menu-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="flyout-menu">
-                        <svg aria-hidden="true" class="open active" viewBox="0 0 38 38">
-                            <defs>
-                                <style>
-                                    .hamburg-a{fill:none;}.hamburg-b{fill:#000;}
-                                </style>
-                            </defs>
-                            <rect class="hamburg-a" width="38" height="38"/>
-                            <rect class="hamburg-b" width="28" height="3" transform="translate(5 13)"/>
-                            <rect id="animate-line" class="hamburg-b" width="23" height="3" transform="translate(5 22)"/>
-                        </svg>
-
-                        <svg aria-hidden="true" class="close" viewbox="0 0 29.604 29.604" width="18" height="18">
-                            <use href="#mobile-close"></use>
-                        </svg>
-                    </button> -->
                 </div>
                 
             </header>
 
         <div id="container" data-barba="container" data-barba-namespace="<?php echo $post->post_name; ?>">
-        <!-- TODO: If scroll indicator, enable here -->
-        <?php //include('components/scroll-indicator.php'); ?>
-

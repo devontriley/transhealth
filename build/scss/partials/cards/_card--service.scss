@@ -60,5 +60,10 @@
         @include media-breakpoint-up(lg) {
             padding: 0 10vw;
         }
+
+        a {
+            color: #fff;
+            text-decoration: underline;
+        }
     }
 }

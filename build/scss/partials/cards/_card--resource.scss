@@ -54,7 +54,7 @@
                 width: 60%;
                 height: auto;
                 position: static;
-                margin: 0 auto;
+                margin: 2rem auto 0 auto;
             }
         }
     }
@@ -72,6 +72,7 @@
         .tags {
             color: $lightBlue;
             font-size: 1.4rem;
+            margin-top: 0;
         }
 
         .card-title {

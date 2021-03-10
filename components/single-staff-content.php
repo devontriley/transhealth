@@ -9,11 +9,9 @@ $hobbies = get_field('hobbies');
 $pets = get_field('pets');
 $band = get_field('favorite_band');
 $bio = get_field('bio');
-
 $joinedDate = get_field('joined_transhealth');
 $education = get_field('education');
 $languages = get_field('languages');
-
 $isClinician = is_singular('clinicians');
 
 //IF POST TYPE IS CLINICIAN 
@@ -38,6 +36,8 @@ if($isClinician)
                     <p class="name"><?php echo $name ?></p>
                     <p class="title"><?php echo $title ?></p>
                     <p class="pronouns"><?php echo $pronouns ?></p>
+
+                    <p><br /><a href="<?php echo get_bloginfo('url') ?>/about-transhealth#our_leadership">< Back to staff</a></p>
                     
                     <?php if($isClinician): ?>
                         <?php echo button('', 'Book an Appointment'); ?>
