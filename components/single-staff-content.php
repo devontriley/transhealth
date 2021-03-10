@@ -21,7 +21,7 @@ if($isClinician)
 {
     $specialty = get_field('speciality_of_practice');
     $internship = get_field('internship');
-    $boardCert = get_field('board_certification');
+    //$boardCert = get_field('board_certification');
     $residency = get_field('residency');
 }
 
@@ -96,7 +96,6 @@ if($isClinician)
                                     <h4>Education</h4>
                                     <p><?php echo $education ?></p>
                                 <?php endif; ?>
-                                
 
                                 <?php if($residency): ?>
                                     <h4>Residency</h4>
