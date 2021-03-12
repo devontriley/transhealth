@@ -3,10 +3,17 @@ if(!$header) $header = get_sub_field('header');
 if(!$gradientAccent) $gradientAccent = get_sub_field('gradient_accent');
 if(!$staffType) $staffType = get_sub_field('staff_type');
 if(!$staffQuery) {
-    $staffQuery = new WP_Query(array(
-        'post_type' => $staffType,
-        'order' => 'ASC'
-    ));
+    if($staffType == 'team'){
+        $staffQuery = new WP_Query(array(
+            'post_type' => array('leadership', 'clinicians'),
+            'order' => 'ASC'
+        ));
+    } else {
+        $staffQuery = new WP_Query(array(
+            'post_type' => $staffType,
+            'order' => 'ASC'
+        ));
+    }
 }
 if(!$resultCount) $resultCount = $staffQuery->found_posts;
 ?>

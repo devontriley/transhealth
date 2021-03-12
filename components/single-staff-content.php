@@ -112,7 +112,7 @@ if($isClinician)
                                 <?php endif; ?>
 
                                 <?php if($certifications): ?>
-                                    <h4 class="cert">Certification</h4>
+                                    <h4 class="cert">Certifications</h4>
                                     <p><?php echo $certifications ?></p>
                                 <?php endif; ?>
                             <?php endif; ?>
