@@ -20,9 +20,7 @@ $isClinician = is_singular('clinicians');
 if($isClinician)
 {
     $specialty = get_field('speciality_of_practice');
-    $internship = get_field('internship');
-    //$boardCert = get_field('board_certification');
-    $residency = get_field('residency');
+    $medicalBg = get_field('medical_background');
 }
 
 ?>
@@ -77,9 +75,9 @@ if($isClinician)
                                     <p><?php echo $joinedDate ?></p>
                                 <?php endif; ?>
 
-                                <?php if($internship): ?>
-                                    <h4>Internship</h4>
-                                    <p><?php echo $internship ?></p>
+                                <?php if($medicalBg): ?>
+                                    <h4>Medical Background</h4>
+                                    <p><?php echo $medicalBg ?></p>
                                 <?php endif; ?>
 
                                 <?php if($certifications): ?>
@@ -95,11 +93,6 @@ if($isClinician)
                                 <?php if($education): ?>
                                     <h4>Education</h4>
                                     <p><?php echo $education ?></p>
-                                <?php endif; ?>
-
-                                <?php if($residency): ?>
-                                    <h4>Residency</h4>
-                                    <p><?php echo $residency ?></p>
                                 <?php endif; ?>
                             <?php else: ?>  
                                 
