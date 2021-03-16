@@ -75,16 +75,6 @@ if($isClinician)
                                     <p><?php echo $joinedDate ?></p>
                                 <?php endif; ?>
 
-                                <?php if($medicalBg): ?>
-                                    <h4>Medical Background</h4>
-                                    <p><?php echo $medicalBg ?></p>
-                                <?php endif; ?>
-
-                                <?php if($certifications): ?>
-                                    <h4>Board Certification</h4>
-                                    <p><?php echo $certifications ?></p>
-                                <?php endif; ?>
-
                                 <?php if($languages): ?>
                                     <h4>Languages</h4>
                                     <p><?php echo $languages ?></p>
@@ -93,6 +83,11 @@ if($isClinician)
                                 <?php if($education): ?>
                                     <h4>Education</h4>
                                     <p><?php echo $education ?></p>
+                                <?php endif; ?>
+
+                                <?php if($medicalBg): ?>
+                                    <h4>Additional Clinical Education</h4>
+                                    <p><?php echo $medicalBg ?></p>
                                 <?php endif; ?>
                             <?php else: ?>  
                                 
@@ -135,7 +130,7 @@ if($isClinician)
                                 <?php endif; ?>
 
                                 <?php if($anythingElse): ?>
-                                    <h4>Anything else?</h4>
+                                    <h4>Anything Else</h4>
                                     <p><?php echo $anythingElse ?></p>
                                 <?php endif; ?>
                         </div>
