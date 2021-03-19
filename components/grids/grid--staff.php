@@ -6,12 +6,14 @@ if(!$staffQuery) {
     if($staffType == 'team'){
         $staffQuery = new WP_Query(array(
             'post_type' => array('leadership', 'clinicians'),
-            'order' => 'ASC'
+            'order' => 'ASC',
+            'posts_per_page' => -1
         ));
     } else {
         $staffQuery = new WP_Query(array(
             'post_type' => $staffType,
-            'order' => 'ASC'
+            'order' => 'ASC',
+            'posts_per_page' => -1
         ));
     }
 }
