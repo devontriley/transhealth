@@ -9517,6 +9517,8 @@ body.no-promo #flyout-menu {
     .slider-module #insetCarousel .carousel-inner .carousel-item.slider-card {
       height: 100%;
       background: #fff; }
+      .slider-module #insetCarousel .carousel-inner .carousel-item.slider-card .inner, .slider-module #insetCarousel .carousel-inner .carousel-item.slider-card .row {
+        height: 100%; }
       @media (min-width: 992px) {
         .slider-module #insetCarousel .carousel-inner .carousel-item.slider-card .text-container .text-inner {
           padding: 3rem 3rem 10rem 3rem; } }
@@ -10071,8 +10073,11 @@ body.no-promo #flyout-menu {
       height: 100%;
       object-fit: cover; }
       .card.resource .img-wrapper img[src*=".svg"] {
-        width: 60%;
-        height: auto;
+        width: 100%;
+        height: 100%;
+        max-width: 50%;
+        max-height: 50%;
+        object-fit: contain;
         position: static;
         margin: 2rem auto 0 auto; }
   .card.resource .text-wrapper {
