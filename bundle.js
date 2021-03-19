@@ -39188,6 +39188,26 @@ function stickyHeader()
 scroll(stickyHeader)
 
 
+// Carousel
+
+let carousel = $('#insetCarousel');
+if(carousel.length)
+{
+    let maxHeight = 0;
+    $('.carousel-item', carousel).each(function(i, e)
+    {
+        maxHeight = (e.offsetHeight > maxHeight) ? e.offsetHeight : maxHeight;
+    });
+
+    console.log(maxHeight);
+
+    $('.carousel-item', carousel).each(function()
+    {
+        $(this).height(maxHeight+'px');
+    });
+}
+
+
 // RESOURCES QUERY SYSTEM 
 if(document.getElementById('resource-module'))
 {

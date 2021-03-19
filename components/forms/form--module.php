@@ -7,7 +7,7 @@ $introCopy = get_sub_field('introductory_copy');
     <div class="inner">
         <div class="text-container">
             <div class="row">
-                <div class="col-md-4 offset-md-1">
+                <div class="col-md-4 mb-5 offset-md-1">
                     <h1><?php echo get_the_title(); ?></h1>
                 </div>
 
