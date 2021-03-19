@@ -11,6 +11,7 @@ $band = get_field('favorite_band');
 $bio = get_field('bio');
 $joinedDate = get_field('joined_transhealth');
 $education = get_field('education');
+$medicalBg = get_field('medical_background');
 $languages = get_field('languages');
 $certifications = get_field('certifications');
 $anythingElse = get_field('anything_else');
@@ -20,7 +21,6 @@ $isClinician = is_singular('clinicians');
 if($isClinician)
 {
     $specialty = get_field('speciality_of_practice');
-    $medicalBg = get_field('medical_background');
 }
 
 ?>
@@ -109,6 +109,11 @@ if($isClinician)
                                 <?php if($certifications): ?>
                                     <h4 class="cert">Certifications</h4>
                                     <p><?php echo $certifications ?></p>
+                                <?php endif; ?>
+
+                                <?php if($medicalBg): ?>
+                                    <h4>Additional Clinical Education</h4>
+                                    <p><?php echo $medicalBg ?></p>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </div>
