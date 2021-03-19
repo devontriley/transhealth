@@ -40,7 +40,7 @@ if($isClinician)
                     <p><br /><a href="<?php echo get_bloginfo('url') ?>/about-transhealth#our_leadership">< Back to staff</a></p>
                     
                     <?php if($isClinician): ?>
-                        <?php echo button('', 'Book an Appointment'); ?>
+                        <?php echo button(get_permalink(43), 'Book an Appointment'); ?>
                     <?php endif; ?>
                 </div>
             </div>
