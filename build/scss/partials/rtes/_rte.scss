@@ -94,6 +94,12 @@
         .text-container {
             margin: 0 auto;
             text-align: left;
+            @media(min-width: 1024px) {
+                max-width: 100rem;
+            }
+            @media(min-width: 1440px) {
+                width: 70vw;
+            }
 
             p {
                 &:last-child {

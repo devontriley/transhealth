@@ -9339,6 +9339,12 @@ body.no-promo #flyout-menu {
     .rte.standard.minimal .text-container {
       margin: 0 auto;
       text-align: left; }
+      @media (min-width: 1024px) {
+        .rte.standard.minimal .text-container {
+          max-width: 100rem; } }
+      @media (min-width: 1440px) {
+        .rte.standard.minimal .text-container {
+          width: 70vw; } }
       .rte.standard.minimal .text-container p:last-child {
         margin-bottom: 0; }
       .rte.standard.minimal .text-container .btn {
