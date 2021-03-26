@@ -9362,11 +9362,11 @@ body.no-promo #flyout-menu {
     margin-top: -4vw; }
   .rte.fiftyfifty .image-container .image-inner img {
     width: 100%;
-    max-height: 30rem;
-    object-fit: cover; }
+    height: auto; }
     @media (min-width: 768px) {
       .rte.fiftyfifty .image-container .image-inner img {
-        max-height: none; } }
+        max-height: none;
+        object-fit: cover; } }
   .rte.fiftyfifty .text-container {
     display: flex;
     justify-content: center;
@@ -9691,6 +9691,9 @@ body.no-promo #flyout-menu {
         margin-top: 2em; }
     .staff-single .secondary-details .tab-content p {
       margin: 0; }
+  .staff-single .secondary-details .content img {
+    max-width: 100%;
+    height: auto; }
 
 @media (min-width: 1440px) {
   .resources-wrapper {

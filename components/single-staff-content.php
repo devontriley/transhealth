@@ -144,7 +144,7 @@ if($isClinician)
                     <h2>Staff Bio</h2>
 
                     <div class="content">
-                        <?php echo $bio ?>
+                        <?php echo apply_filters('the_content', $bio); ?>
                     </div>
 
                 </div>

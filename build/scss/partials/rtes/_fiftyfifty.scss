@@ -18,16 +18,14 @@
         margin-top: -4vw;
     }
 
-
     .image-container {
         .image-inner {
             img {
                 width: 100%;
-                max-height: 30rem;
-                object-fit: cover;
+                height: auto;
                 @include media-breakpoint-up(md) {
                     max-height: none;
-                    //object-fit: none;
+                    object-fit: cover;
                 }
             }
         }
