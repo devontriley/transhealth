@@ -4,9 +4,30 @@ if(!$gradientAccent) $gradientAccent = get_sub_field('gradient_accent');
 if(!$staffType) $staffType = get_sub_field('staff_type');
 if(!$staffQuery) {
     if($staffType == 'team'){
+        $staffQueryOrdered = new WP_Query(array(
+            'post_type' => array('leadership', 'clinicians'),
+            'meta_key'	=> 'our_team_grid_order',
+	        'orderby'	=> 'meta_value',
+	        'order'		=> 'ASC',
+            'fields'        => 'ids',
+            'posts_per_page' => -1
+        ));
+
+        $staffQueryUnordered = new WP_Query(array(
+            'post_type' => array('leadership', 'clinicians'),
+            'post__not_in' => $staffQueryOrdered->posts,
+	        'order'		=> 'ASC',
+            'fields'        => 'ids',
+            'posts_per_page' => -1
+        ));
+
+        $staff_ids = array_merge($staffQueryOrdered->posts, $staffQueryUnordered->posts); 
+
         $staffQuery = new WP_Query(array(
             'post_type' => array('leadership', 'clinicians'),
-            'order' => 'ASC',
+            'post__in' => $staff_ids,
+            'order'		=> 'ASC',
+            'orderby' => 'post__in',
             'posts_per_page' => -1
         ));
     } else {
