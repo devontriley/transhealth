@@ -1,7 +1,6 @@
 <?php
 $pageID = (is_post_type_archive('tribe_events')) ? 365 : $post->ID;
-
-//print_r(get_field('components'));
+$moduleCounter = 0;
 
 if(have_rows('components', $pageID)) :
     while(have_rows('components', $pageID)):
@@ -20,24 +19,24 @@ if(have_rows('components', $pageID)) :
                 break;
 
             //RTE
-            case 'rte' : 
+            case 'rte' :
                 include('rtes/rte.php');
                 break;
 
-            //SLIDER 
-            case 'slider' : 
+            //SLIDER
+            case 'slider' :
                 include('slider.php');
                 break;
 
             //FAQS
-            case 'faqs' : 
+            case 'faqs' :
                 include('faqs.php');
                 break;
 
             //EVENTS TOOL
-            case 'events_tool' : 
+            case 'events_tool' :
                 include('events-tool.php');
-                break; 
+                break;
 
             //CONTACT FORM MODULE
             case 'contact_form_module' :
@@ -45,11 +44,12 @@ if(have_rows('components', $pageID)) :
                 break;
 
             //CAREERS FORM MODULE
-            case 'careers_form_module' : 
+            case 'careers_form_module' :
                 //include('forms/careers--module.php');
                 include('forms/form--module.php');
                 break;
         }
+        $moduleCounter++;
     endwhile;
 endif;
 

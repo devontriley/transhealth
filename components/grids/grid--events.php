@@ -14,7 +14,7 @@ if(!$events)
 }
 ?>
 
-<div class="module-wrapper" data-scroll-effect="">
+<div id="module-<?php echo $moduleCounter ?>" class="module-wrapper" data-scroll-effect="">
     <div class="grid event module-padded">
         <?php if($mainHeader): ?>
             <h2 class="main-header outline"><?php echo $mainHeader; ?></h2>

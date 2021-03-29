@@ -12,7 +12,7 @@
     if(!$inBox) $inBox = get_sub_field('in_box');
 ?>
 
-<div class="module-wrapper" data-scroll-effect="">
+<div id="module-<?php echo $moduleCounter ?>" class="module-wrapper" data-scroll-effect="">
     <div class="rte fiftyfifty <?php echo ($inBox) ? 'in-box module-padded' : 'module-flush';?>">
         <?php if($mainHeader): ?>
             <h2 class="main-header outline"><?php echo $mainHeader; ?></h2>

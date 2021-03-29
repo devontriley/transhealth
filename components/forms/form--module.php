@@ -3,7 +3,7 @@ $introTitle = get_sub_field('introductory_title');
 $introCopy = get_sub_field('introductory_copy');
 ?>
 
-<div class="jumbotron hero tertiary module-padded" data-scroll-effect="">
+<div id="module-<?php echo $moduleCounter ?>" class="jumbotron hero tertiary module-padded" data-scroll-effect="">
     <div class="inner">
         <div class="text-container">
             <div class="row">

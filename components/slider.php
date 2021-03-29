@@ -5,7 +5,7 @@
     $counter = 0;
 ?>
 
-<div class="module-wrapper" data-scroll-effect="">
+<div id="module-<?php echo $moduleCounter ?>" class="module-wrapper" data-scroll-effect="">
     <div class="module-padded slider-module">
 
         <div class="inset">
