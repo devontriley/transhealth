@@ -10,7 +10,9 @@ if(!$anchorLinks) $anchorLinks = get_sub_field('anchor_links');
             <div class="inner">
                 <h1><?php echo $header ?></h1>
                 <?php if($anchorLinks) : ?>
-                    <?php echo $anchorLinks ?>
+                    <div class="anchorLinks">
+                        <?php echo $anchorLinks ?>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
