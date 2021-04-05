@@ -3,7 +3,7 @@ $envType = wp_get_environment_type();
 
 if($envType == 'local') {
     require $_SERVER['DOCUMENT_ROOT']. '/transhealth/wp-content/themes/transhealth/vendor/autoload.php';
-} elseif ($envType == 'staging') {
+} elseif ($envType == 'staging' || $envType == 'production') {
     require $_SERVER['DOCUMENT_ROOT']. '/wp-content/themes/transhealth/vendor/autoload.php';
 }
 
