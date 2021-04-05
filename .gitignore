@@ -3,4 +3,5 @@ google-api-php-client--PHP7.4
 composer.lock
 composer.phar
 vendor
-includes/service-account-credentials.json
+google_calendar_log.txt
+../../../service-account-credentials.json

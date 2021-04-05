@@ -27,22 +27,31 @@ function get_google_calendar_service()
  * Event 'created/updated' hook for creating Google Calendar events
  */
 
-function post_unpublished($id, $post)
+function post_unpublished($new_status, $old_status, $post)
 {
-    $calendarId = 'c_pjtm9656bvffua43j4jqik36co@group.calendar.google.com';
-    $service = get_google_calendar_service();
-    $post_url = get_permalink($id);
+    $postType = get_post_type($post);
 
-    $tribeEvents = tribe_get_event($id);
-    $title = $tribeEvents->post_title;
-    $desc = $tribeEvents->post_content;
-    $timezone = $tribeEvents->timezone;
-    $start = tribe_get_start_date($post, true, 'c', $timezone);
-    $end = tribe_get_end_date($post, true, 'c', $timezone);
+    $fp = fopen(get_template_directory() . '/google_calendar_log.txt', 'a');
+    fwrite($fp, json_encode([$new_status, $old_status]) . "\r\n");
+    fclose($fp);
 
-    // Create/update
-    if(current_action() == 'publish_tribe_events')
+    // For some reason when importing events from evenbrite through the events aggregator,
+    // the event is published twice, but the first time the date is incorrect. This is a hack fix
+    // to only create a google calendar event on the second publish.
+    // This does mean that if a post is manually created, it will need to be saved a second time
+    // to create the google calendar event
+    if($postType == 'tribe_events' && $new_status == 'publish' && $old_status == 'publish')
     {
+        $calendarId = 'c_pjtm9656bvffua43j4jqik36co@group.calendar.google.com';
+        $service = get_google_calendar_service();
+
+        $tribeEvents = tribe_get_event($post);
+        $title = $tribeEvents->post_title;
+        $desc = $tribeEvents->post_content;
+        $timezone = $tribeEvents->timezone;
+        $start = tribe_get_start_date($post, true, 'c', $timezone);
+        $end = tribe_get_end_date($post, true, 'c', $timezone);
+
         $event = new Google_Service_Calendar_Event(array(
             'summary' => $title,
             'description' => $desc,
@@ -60,24 +69,28 @@ function post_unpublished($id, $post)
 
         $eventID = $addEvent->id;
 
-        update_post_meta($id, 'googleEventID', $eventID);
+        update_post_meta($post->ID, 'googleEventID', $eventID);
 
-        $fp = fopen(get_template_directory() . '/google_calendar_log.txt', 'a');
-        fwrite($fp, json_encode($tribeEvents) . "\r\n");
-        fwrite($fp, $timezone . "\r\n");
-        fclose($fp);
+//        $fp = fopen(get_template_directory() . '/google_calendar_log.txt', 'a');
+//        fwrite($fp, json_encode($addEvent) . "\r\n");
+//        fwrite($fp, $timezone . "\r\n");
+//        fclose($fp);
     }
 
-    // Delete
-    // if(current_action() == 'trash_tribe_events')
-    // {
-    //     $eventID = get_post_meta($id, 'googleEventID');
-    //     $deleteEvent = $service->events->delete($calendarId, $eventID);
+    if($postType == 'tribe_events' && $new_status == 'trash')
+    {
+        $calendarId = 'c_pjtm9656bvffua43j4jqik36co@group.calendar.google.com';
+        $service = get_google_calendar_service();
+        $tribeEvents = tribe_get_event($post);
+        $title = $tribeEvents->post_title;
+        $eventID = get_post_meta($post->ID, 'googleEventID');
+        $deleteEvent = $service->events->delete($calendarId, $eventID);
 
-    //     $fp = fopen(get_template_directory() . '/google_calendar_log.txt', 'a');
-    //     fwrite($fp, 'Delete ' . $title . "\r\n");
-    //     fclose($fp);
-    // }
+        $fp = fopen(get_template_directory() . '/google_calendar_log.txt', 'a');
+        fwrite($fp, 'Delete ' . $title . "\r\n");
+        fclose($fp);
+    }
 }
- add_action( 'publish_tribe_events', 'post_unpublished', 10, 2);
- add_action( 'trash_tribe_events', 'post_unpublished', 10, 2);
+// add_action( 'publish_tribe_events', 'post_unpublished', 10, 2);
+// add_action( 'trash_tribe_events', 'post_unpublished', 10, 2);
+add_action('transition_post_status', 'post_unpublished', 10, 3);
