@@ -71,10 +71,10 @@ function post_unpublished($new_status, $old_status, $post)
 
         update_post_meta($post->ID, 'googleEventID', $eventID);
 
-//        $fp = fopen(get_template_directory() . '/google_calendar_log.txt', 'a');
-//        fwrite($fp, json_encode($addEvent) . "\r\n");
-//        fwrite($fp, $timezone . "\r\n");
-//        fclose($fp);
+        $fp = fopen(get_template_directory() . '/google_calendar_log.txt', 'a');
+        fwrite($fp, json_encode($addEvent) . "\r\n");
+        fwrite($fp, $timezone . "\r\n");
+        fclose($fp);
     }
 
     if($postType == 'tribe_events' && $new_status == 'trash')
