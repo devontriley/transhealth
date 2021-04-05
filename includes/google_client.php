@@ -1,5 +1,11 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT']. '/transhealth/wp-content/themes/transhealth/vendor/autoload.php';
+$envType = wp_get_environment_type();
+
+if($envType == 'local') {
+    require $_SERVER['DOCUMENT_ROOT']. '/transhealth/wp-content/themes/transhealth/vendor/autoload.php';
+} elseif ($envType == 'staging') {
+    require $_SERVER['DOCUMENT_ROOT']. '/wp-content/themes/transhealth/vendor/autoload.php';
+}
 
 /* Ad hoc functions to make the examples marginally prettier.*/
 function isWebRequest()
