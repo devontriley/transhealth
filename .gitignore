@@ -1,2 +1,6 @@
 build/node_modules
 google-api-php-client--PHP7.4
+composer.lock
+composer.phar
+vendor
+includes/service-account-credentials.json
