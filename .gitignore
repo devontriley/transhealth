@@ -5,3 +5,4 @@ composer.phar
 vendor
 google_calendar_log.txt
 ../../../service-account-credentials.json
+service-account-credentials.json
